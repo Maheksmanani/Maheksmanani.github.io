@@ -553,7 +553,8 @@
       from { opacity: 0; transform: translateY(28px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal { opacity: 1; transform: translateY(0); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.hidden { opacity: 0; transform: translateY(30px); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
@@ -617,7 +618,7 @@
             <div class="stat-icon"><i class="fas fa-star"></i></div>
             <div>
               <div class="stat-label">GPA</div>
-              <div class="stat-value">3.87 / 4.0</div>
+              <div class="stat-value">3.88 / 4.0</div>
             </div>
           </div>
           <div class="stat-item">
@@ -1059,10 +1060,18 @@
   });
 
   // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  revealEls.forEach(el => el.classList.add('hidden'));
   const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.remove('hidden');
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+  revealEls.forEach(el => obs.observe(el));
 
   // Contact form
   document.getElementById('contactForm').addEventListener('submit', async function(e) {
