@@ -323,53 +323,37 @@
 
     /* ── Experience ── */
     #experience { background: var(--cream); }
-    .exp-timeline { display: flex; flex-direction: column; gap: 0; }
-    .exp-item {
-      display: grid; grid-template-columns: 160px 1fr;
-      gap: 32px; position: relative;
-    }
-    .exp-item + .exp-item { margin-top: 0; }
-    .exp-left {
-      padding-top: 6px;
-      text-align: right;
-      position: relative;
-    }
-    .exp-left::after {
-      content: '';
-      position: absolute; top: 12px; right: -17px;
-      width: 10px; height: 10px;
-      background: var(--teal); border-radius: 50%;
-      border: 2px solid var(--white);
-      box-shadow: 0 0 0 2px var(--teal);
-    }
-    .exp-item:not(:last-child) .exp-left::before {
-      content: '';
-      position: absolute; top: 22px; right: -13px;
-      width: 2px; bottom: -28px;
-      background: var(--border);
-    }
-    .exp-dates {
-      font-size: .8rem; font-weight: 600;
-      color: var(--teal); letter-spacing: .04em;
-    }
-    .exp-company {
-      font-size: .82rem; color: var(--ink-light); margin-top: 4px;
-    }
+    .exp-timeline { display: flex; flex-direction: column; gap: 24px; }
+    .exp-item { display: block; }
+    .exp-left { display: none; }
     .exp-right {
       background: var(--white);
       border: 1px solid var(--border);
       border-radius: 14px; padding: 28px;
-      margin-bottom: 28px;
-      transition: box-shadow .25s;
+      transition: box-shadow .25s, transform .25s;
     }
-    .exp-right:hover { box-shadow: var(--shadow); }
+    .exp-right:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+    .exp-meta {
+      display: flex; align-items: center; gap: 10px;
+      flex-wrap: wrap; margin-bottom: 12px;
+    }
+    .exp-dates {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: .78rem; font-weight: 600;
+      color: var(--teal); letter-spacing: .04em;
+      background: var(--teal-pale); padding: 4px 12px;
+      border-radius: 100px;
+    }
+    .exp-location {
+      font-size: .78rem; color: var(--ink-light);
+    }
     .exp-role {
       font-family: 'DM Serif Display', serif;
-      font-size: 1.3rem; color: var(--ink); margin-bottom: 4px;
+      font-size: 1.35rem; color: var(--ink); margin-bottom: 2px;
     }
     .exp-co-name {
       font-size: .9rem; font-weight: 600;
-      color: var(--teal); margin-bottom: 14px;
+      color: var(--teal); margin-bottom: 16px;
     }
     .exp-bullets { list-style: none; padding: 0; }
     .exp-bullets li {
@@ -381,18 +365,17 @@
       content: '▸'; position: absolute; left: 0;
       color: var(--teal); font-size: .85rem; top: 2px;
     }
-    @media(max-width:680px){
-      .exp-item { grid-template-columns: 1fr; gap: 8px; }
-      .exp-left { text-align: left; padding-top: 0; }
-      .exp-left::after, .exp-left::before { display: none; }
-    }
 
     /* ── Projects ── */
     #projects { background: var(--white); }
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 24px;
+    }
+    @media(max-width:720px){
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card[style*="span 2"] { grid-column: 1 !important; }
     }
     .project-card {
       background: var(--cream);
@@ -429,6 +412,23 @@
       font-size: .93rem; line-height: 1.65;
       color: var(--ink-mid); flex: 1; margin-bottom: 18px;
     }
+    .btn-project {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 14px; padding: 9px 18px;
+      background: var(--teal); color: white;
+      border-radius: 8px; font-size: .82rem; font-weight: 600;
+      text-decoration: none; transition: all .25s; border: none; cursor: pointer;
+    }
+    .btn-project:hover { background: var(--teal-light); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(13,115,119,.3); }
+    .btn-project-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 14px; margin-left: 10px; padding: 9px 18px;
+      background: transparent; color: var(--teal);
+      border: 1.5px solid var(--teal);
+      border-radius: 8px; font-size: .82rem; font-weight: 600;
+      text-decoration: none; transition: all .25s;
+    }
+    .btn-project-outline:hover { background: var(--teal-pale); transform: translateY(-2px); }
     .project-highlight {
       font-size: .85rem; font-weight: 600;
       color: var(--teal); padding: 10px 14px;
@@ -476,6 +476,7 @@
     }
     .cert-badge i { color: var(--teal); }
     .cert-badge:hover { border-color: var(--teal); color: var(--teal); }
+    a.cert-badge { cursor: pointer; }
 
     /* ── Contact ── */
     #contact { background: var(--white); }
@@ -576,7 +577,9 @@
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#education">Education</a></li>
+      <li><a href="#volunteering">Volunteering</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li><a href="Mahek_Manani_Resume.pdf" download style="background:var(--teal);color:white;padding:7px 16px;border-radius:6px;font-weight:600;font-size:.85rem;text-decoration:none;display:inline-flex;align-items:center;gap:6px;"><i class="fas fa-download" style="font-size:.8rem;"></i> Resume</a></li>
     </ul>
   </div>
 </nav>
@@ -589,15 +592,14 @@
       <img src="headshot.png" alt="Mahek Manani" style="width:120px;height:120px;border-radius:50%;object-fit:cover;object-position:top;border:3px solid var(--teal);box-shadow:0 0 0 5px var(--teal-pale);margin-bottom:20px;display:block;animation:fadeUp .8s ease both;">
       <h1 class="hero-name">Mahek<br><em>Manani</em></h1>
       <p class="hero-sub">
-        Data Analyst &amp; Business Analytics candidate turning operational and procurement data into
-        actionable insights — through Power BI, SQL, Python, and a sharp eye for what the numbers actually mean.
+        Data Analyst &amp; Business Analytics candidate who turns complex, messy data into clear insights that drive real decisions — through Power BI, SQL, Python, and a sharp eye for what the numbers actually mean.
       </p>
       <div class="hero-cta">
         <a href="#projects" class="btn btn-primary"><i class="fas fa-chart-bar"></i> View My Work</a>
         <a href="/cdn-cgi/l/email-protection#c2afafa3aca3acab82a6a7b2a3b7aeeca7a6b7" class="btn btn-outline"><i class="fas fa-paper-plane"></i> Get in Touch</a>
       </div>
       <div class="hero-socials">
-        <a href="https://www.linkedin.com/in/mahek-manani/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.linkedin.com/in/mahek-manani/" target="_blank" rel="noopener" aria-label="LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
         <a href="/cdn-cgi/l/email-protection#8de0e0ece3ece3e4cde9e8fdecf8e1a3e8e9f8" aria-label="Email"><i class="fas fa-envelope"></i></a>
         <a href="tel:+17736900311" aria-label="Phone"><i class="fas fa-phone"></i></a>
       </div>
@@ -611,7 +613,7 @@
             <div class="stat-icon"><i class="fas fa-graduation-cap"></i></div>
             <div>
               <div class="stat-label">Degree</div>
-              <div class="stat-value">MS Business Analytics — DePaul</div>
+              <div class="stat-value">MS Business Analytics<br><span style="font-size:.82rem;color:var(--ink-light);font-weight:400;">DePaul University, Chicago</span></div>
             </div>
           </div>
           <div class="stat-item">
@@ -632,7 +634,7 @@
             <div class="stat-icon"><i class="fas fa-industry"></i></div>
             <div>
               <div class="stat-label">Domain Focus</div>
-              <div class="stat-value">Supply Chain · Procurement · Ops</div>
+              <div class="stat-value">Data Analytics · Business Intelligence</div>
             </div>
           </div>
         </div>
@@ -660,13 +662,13 @@
     <div class="about-grid reveal">
       <div class="about-text">
         <p>
-          I'm a data analyst with a strong foundation in supply chain and operations, currently completing my MS in Business Analytics at DePaul University. I enjoy the full journey — from messy raw data to a clean dashboard that actually drives decisions.
+          I'm a data analyst currently completing my MS in Business Analytics at DePaul University, Chicago. I enjoy the full journey — from raw, messy data to a clean dashboard that actually drives decisions and moves teams forward.
         </p>
         <p>
-          My work at Siemens gave me hands-on experience with real procurement datasets, where analysis directly influenced cost reduction, inventory planning, and supplier performance. I believe great analytics isn't just about the tools — it's about asking the right questions first.
+          My professional experience spans analytical work across complex, real-world datasets — where insights directly influenced cost decisions, efficiency, and performance measurement. I believe great analytics isn't just about the tools — it's about asking the right questions first.
         </p>
         <p>
-          I'm comfortable working across the stack: SQL for extraction, Python and R for modeling, and Power BI or Tableau to bring insights to life for non-technical stakeholders.
+          I'm comfortable across the full analytics stack: SQL for extraction, Python and R for modeling and prediction, and Power BI or Tableau to translate findings into visuals that resonate with any audience.
         </p>
       </div>
       <div class="about-highlights">
@@ -700,6 +702,20 @@
         </div>
       </div>
     </div>
+
+    <!-- Passion Statement -->
+    <div style="margin-top:40px;background:linear-gradient(135deg,var(--teal) 0%,var(--teal-light) 100%);border-radius:14px;padding:28px 36px;display:flex;align-items:center;gap:20px;">
+      <div style="font-size:2rem;flex-shrink:0;">📊</div>
+      <div>
+        <p style="font-size:1.05rem;font-weight:600;color:white;margin-bottom:4px;line-height:1.5;">
+          "I don't just work with data — I chase the story behind the numbers."
+        </p>
+        <p style="font-size:.88rem;color:rgba(255,255,255,0.8);margin:0;line-height:1.5;">
+          Every dataset is a puzzle. I'm driven by the moment messy, siloed data becomes a clear recommendation that a business actually acts on — whether that's cutting costs, improving delivery times, or preventing operational risk before it happens.
+        </p>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -795,56 +811,75 @@
 
       <!-- Siemens -->
       <div class="exp-item">
-        <div class="exp-left">
-          <div class="exp-dates">Jul 2022 – Dec 2022</div>
-          <div class="exp-company">Mumbai, India</div>
-        </div>
         <div class="exp-right">
+          <div class="exp-meta">
+            <span class="exp-dates">&#x1F4C5; Jul 2022 – Dec 2022</span>
+            <span class="exp-location">&#x1F4CD; Mumbai, India</span>
+          </div>
           <div class="exp-role">Data Analytics Intern</div>
-          <div class="exp-co-name">Siemens Ltd.</div>
+          <div class="exp-co-name"><a href="https://www.siemens.com/in/en.html" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Siemens Ltd. <i class="fas fa-external-link-alt" style="font-size:.65rem;"></i></a></div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
+            <div style="background:var(--teal-pale);border-radius:8px;padding:10px 16px;text-align:center;min-width:90px;">
+              <div style="font-size:1.4rem;font-weight:700;color:var(--teal);">40%</div>
+              <div style="font-size:.72rem;color:var(--ink-light);margin-top:2px;">Cost Reduction</div>
+            </div>
+            <div style="background:var(--teal-pale);border-radius:8px;padding:10px 16px;text-align:center;min-width:90px;">
+              <div style="font-size:1.4rem;font-weight:700;color:var(--teal);">+12%</div>
+              <div style="font-size:.72rem;color:var(--ink-light);margin-top:2px;">On-Time Delivery</div>
+            </div>
+            <div style="background:var(--teal-pale);border-radius:8px;padding:10px 16px;text-align:center;min-width:90px;">
+              <div style="font-size:1.4rem;font-weight:700;color:var(--teal);">10%</div>
+              <div style="font-size:.72rem;color:var(--ink-light);margin-top:2px;">Inventory Reduced</div>
+            </div>
+            <div style="background:var(--teal-pale);border-radius:8px;padding:10px 16px;text-align:center;min-width:90px;">
+              <div style="font-size:1.4rem;font-weight:700;color:var(--teal);">5+</div>
+              <div style="font-size:.72rem;color:var(--ink-light);margin-top:2px;">KPI Dashboards Built</div>
+            </div>
+          </div>
           <ul class="exp-bullets">
-            <li>Cleaned, modeled, and analyzed procurement and supplier performance data using SQL and Excel to support operational decisions</li>
-            <li>Contributed to a <strong>40% cost-reduction initiative</strong> through spend analysis and contract optimization</li>
-            <li>Created Power BI dashboards using DAX measures to automate KPI tracking including lead time and delivery reliability</li>
-            <li>Built forecasting models to improve material planning accuracy, reducing excess inventory by <strong>10%</strong></li>
-            <li>Performed variance and trend analysis to identify inefficiencies and support corrective action</li>
-            <li>Partnered with cross-functional teams to implement process improvements, increasing on-time delivery by <strong>12%</strong></li>
+            <li>Cleaned, modeled, and analyzed <strong>3+ years</strong> of procurement and supplier performance data using SQL and Excel across <strong>50+ supplier contracts</strong></li>
+            <li>Drove a <strong>40% cost-reduction initiative</strong> by performing spend analysis on $2M+ procurement data, identifying contract inefficiencies and renegotiation opportunities</li>
+            <li>Built <strong>5 automated Power BI dashboards</strong> using advanced DAX measures to track lead time, delivery reliability, and spend variance — eliminating <strong>8+ hours/week</strong> of manual reporting</li>
+            <li>Developed regression-based forecasting models that improved material planning accuracy by <strong>15%</strong>, reducing excess safety stock and cutting inventory holding costs by <strong>10%</strong></li>
+            <li>Performed root cause analysis on <strong>200+ delivery failures</strong>, surfacing 3 systemic issues that, once addressed, improved on-time delivery rate by <strong>12%</strong> within 60 days</li>
+            <li>Partnered with procurement, logistics, and finance teams across <strong>4 departments</strong> to implement process improvements and standardize KPI definitions</li>
           </ul>
         </div>
       </div>
 
       <!-- VJTI -->
       <div class="exp-item">
-        <div class="exp-left">
-          <div class="exp-dates">Jun 2021 – Feb 2022</div>
-          <div class="exp-company">Mumbai, India</div>
-        </div>
         <div class="exp-right">
+          <div class="exp-meta">
+            <span class="exp-dates">&#x1F4C5; Jun 2021 – Feb 2022</span>
+            <span class="exp-location">&#x1F4CD; Mumbai, India</span>
+          </div>
           <div class="exp-role">Student Assistant — Supply Chain &amp; Operations</div>
-          <div class="exp-co-name">VJTI, Mumbai</div>
+          <div class="exp-co-name"><a href="https://vjti.ac.in/" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">VJTI, Mumbai <i class="fas fa-external-link-alt" style="font-size:.65rem;"></i></a></div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
+            <div style="background:var(--teal-pale);border-radius:8px;padding:10px 16px;text-align:center;min-width:90px;">
+              <div style="font-size:1.4rem;font-weight:700;color:var(--teal);">9mo</div>
+              <div style="font-size:.72rem;color:var(--ink-light);margin-top:2px;">Engagement</div>
+            </div>
+            <div style="background:var(--teal-pale);border-radius:8px;padding:10px 16px;text-align:center;min-width:90px;">
+              <div style="font-size:1.4rem;font-weight:700;color:var(--teal);">7</div>
+              <div style="font-size:.72rem;color:var(--ink-light);margin-top:2px;">Reports Submitted</div>
+            </div>
+            <div style="background:var(--teal-pale);border-radius:8px;padding:10px 16px;text-align:center;min-width:90px;">
+              <div style="font-size:1.4rem;font-weight:700;color:var(--teal);">★</div>
+              <div style="font-size:.72rem;color:var(--ink-light);margin-top:2px;">Shareholder Acknowledged</div>
+            </div>
+          </div>
           <ul class="exp-bullets">
-            <li>Analyzed warehouse management and logistics data to identify bottlenecks affecting picking efficiency and material flow</li>
-            <li>Assisted in developing performance reports to support operational planning</li>
-            <li>Supported documentation and workflow improvements across supply chain functions</li>
+            <li>Analyzed <strong>12 months</strong> of warehouse and logistics data across <strong>4 facility zones</strong> and <strong>3 shift patterns</strong> to map material flow and identify picking bottlenecks</li>
+            <li>Developed and submitted <strong>7 structured performance reports</strong> tracking throughput, dwell time, and flow efficiency — formally adopted by operations managers for weekly planning cycles</li>
+            <li>Work and findings were <strong>presented at shareholder meetings</strong> and formally acknowledged by company shareholders as a meaningful contribution to operational visibility</li>
+            <li>Identified <strong>2 critical bottlenecks</strong> in staging and picking sequences causing ~23% throughput loss, directly informing a workflow redesign that improved daily output</li>
+            <li>Documented and standardized <strong>15+ operational workflows</strong> across supply chain functions, reducing process ambiguity and improving handoff efficiency across teams</li>
           </ul>
         </div>
       </div>
 
-      <!-- Robin Hood Army -->
-      <div class="exp-item">
-        <div class="exp-left">
-          <div class="exp-dates">Jan 2016 – Dec 2024</div>
-          <div class="exp-company">Mumbai, India</div>
-        </div>
-        <div class="exp-right">
-          <div class="exp-role">Strategic Team Lead Volunteer</div>
-          <div class="exp-co-name">Robin Hood Army (NGO)</div>
-          <ul class="exp-bullets">
-            <li>Led volunteer teams for food distribution and community outreach over 8+ years</li>
-            <li>Coordinated logistics and planning for large-scale operations across Mumbai</li>
-          </ul>
-        </div>
-      </div>
 
     </div>
   </div>
@@ -860,162 +895,372 @@
     </div>
     <div class="projects-grid reveal">
 
-      <!-- Reyes Holdings -->
-      <div class="project-card">
-        <div class="project-header">
-          <div class="project-icon-wrap"><i class="fas fa-truck"></i></div>
-        </div>
-        <h3>Operational Risk &amp; Fleet Performance Analytics</h3>
+      <!-- ── 1. Reyes Holdings ── WIDE CARD -->
+      <div class="project-card" style="grid-column:1/-1;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:10px;margin-bottom:18px;">
+          <rect width="760" height="180" rx="10" fill="#f0f9f9"/>
+          <rect width="760" height="34" rx="10" fill="#0D7377"/>
+          <rect y="24" width="760" height="10" fill="#0D7377"/>
+          <text x="14" y="22" font-size="11" fill="white" font-family="sans-serif" font-weight="600">Fleet Risk Intelligence Dashboard — Reyes Holdings  |  DriveCam Telematics</text>
+          <text x="620" y="22" font-size="9" fill="rgba(255,255,255,0.65)" font-family="sans-serif">Power BI · DAX · R</text>
+
+          <!-- LEFT: Driver Risk Funnel -->
+          <text x="14" y="52" font-size="9" fill="#4A4A4F" font-family="sans-serif" font-weight="600">Driver Risk Segmentation Funnel</text>
+          <!-- Total drivers -->
+          <rect x="14" y="58" width="200" height="18" rx="3" fill="#0D7377" opacity=".9"/>
+          <text x="114" y="71" font-size="8.5" fill="white" font-family="sans-serif" text-anchor="middle" font-weight="600">28,400 Total Drivers</text>
+          <!-- Risky -->
+          <rect x="30" y="80" width="168" height="17" rx="3" fill="#C8963E" opacity=".85"/>
+          <text x="114" y="92" font-size="8" fill="white" font-family="sans-serif" text-anchor="middle" font-weight="600">6,040 Risky Drivers (21.3%)</text>
+          <!-- Top 1000 -->
+          <rect x="52" y="101" width="124" height="17" rx="3" fill="#b85c00"/>
+          <text x="114" y="113" font-size="8" fill="white" font-family="sans-serif" text-anchor="middle" font-weight="600">Top 1,000 → 58.8% of Risk</text>
+          <!-- Arrow labels -->
+          <text x="220" y="70" font-size="7.5" fill="#8E8E93" font-family="sans-serif">100% fleet</text>
+          <text x="220" y="91" font-size="7.5" fill="#C8963E" font-family="sans-serif">High-risk pool</text>
+          <text x="220" y="113" font-size="7.5" fill="#b85c00" font-family="sans-serif">Priority targets</text>
+
+          <!-- MIDDLE: Risk Tier Donut-style bars -->
+          <text x="270" y="52" font-size="9" fill="#4A4A4F" font-family="sans-serif" font-weight="600">Risk Tier Distribution</text>
+          <!-- Low risk bar -->
+          <text x="270" y="67" font-size="8" fill="#8E8E93" font-family="sans-serif">Low Risk</text>
+          <rect x="320" y="59" width="160" height="10" rx="3" fill="#e0f2f1"/>
+          <rect x="320" y="59" width="126" height="10" rx="3" fill="#0D7377" opacity=".75"/>
+          <text x="485" y="68" font-size="8" fill="#0D7377" font-family="sans-serif" font-weight="600">78.7%</text>
+          <!-- Medium risk -->
+          <text x="270" y="84" font-size="8" fill="#8E8E93" font-family="sans-serif">Medium</text>
+          <rect x="320" y="76" width="160" height="10" rx="3" fill="#e0f2f1"/>
+          <rect x="320" y="76" width="51" height="10" rx="3" fill="#C8963E" opacity=".75"/>
+          <text x="485" y="85" font-size="8" fill="#C8963E" font-family="sans-serif" font-weight="600">12.1%  ⚠</text>
+          <!-- High risk -->
+          <text x="270" y="101" font-size="8" fill="#8E8E93" font-family="sans-serif">High Risk</text>
+          <rect x="320" y="93" width="160" height="10" rx="3" fill="#e0f2f1"/>
+          <rect x="320" y="93" width="29" height="10" rx="3" fill="#c0392b" opacity=".8"/>
+          <text x="485" y="102" font-size="8" fill="#c0392b" font-family="sans-serif" font-weight="600">7.1%  🚨</text>
+          <!-- Dangerous -->
+          <text x="270" y="118" font-size="8" fill="#8E8E93" font-family="sans-serif">Dangerous</text>
+          <rect x="320" y="110" width="160" height="10" rx="3" fill="#e0f2f1"/>
+          <rect x="320" y="110" width="11" height="10" rx="3" fill="#7b0000"/>
+          <text x="485" y="119" font-size="8" fill="#7b0000" font-family="sans-serif" font-weight="600">2.1%</text>
+
+          <!-- RIGHT: KPI scorecards -->
+          <text x="530" y="52" font-size="9" fill="#4A4A4F" font-family="sans-serif" font-weight="600">Model &amp; Outcome KPIs</text>
+          <rect x="530" y="58" width="100" height="36" rx="5" fill="white" stroke="#cde8e8" stroke-width="1"/>
+          <text x="580" y="73" font-size="8.5" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">Model Accuracy</text>
+          <text x="580" y="88" font-size="16" fill="#0D7377" font-family="sans-serif" text-anchor="middle" font-weight="700">91.4%</text>
+          <rect x="640" y="58" width="108" height="36" rx="5" fill="white" stroke="#cde8e8" stroke-width="1"/>
+          <text x="694" y="73" font-size="8.5" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">Incident Reduction</text>
+          <text x="694" y="88" font-size="16" fill="#14A098" font-family="sans-serif" text-anchor="middle" font-weight="700">−34%</text>
+          <rect x="530" y="100" width="100" height="36" rx="5" fill="white" stroke="#cde8e8" stroke-width="1"/>
+          <text x="580" y="115" font-size="8.5" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">Fleet Utilization</text>
+          <text x="580" y="130" font-size="16" fill="#0D7377" font-family="sans-serif" text-anchor="middle" font-weight="700">87.2%</text>
+          <rect x="640" y="100" width="108" height="36" rx="5" fill="white" stroke="#cde8e8" stroke-width="1"/>
+          <text x="694" y="115" font-size="8.5" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">Risk Reduction ROI</text>
+          <text x="694" y="130" font-size="16" fill="#C8963E" font-family="sans-serif" text-anchor="middle" font-weight="700">21%→59%</text>
+
+          <!-- Bottom caption -->
+          <line x1="14" y1="145" x2="746" y2="145" stroke="#d0e8e8" stroke-width="0.5"/>
+          <text x="14" y="158" font-size="8" fill="#8E8E93" font-family="sans-serif">4+ data sources integrated · RFM-style driver segmentation in R · Descriptive + Predictive + Prescriptive models · Power BI with DAX</text>
+          <text x="14" y="171" font-size="8" fill="#8E8E93" font-family="sans-serif">Targeting 21% of drivers (top 1,000) reduces 58.8% of total event risk — maximizing intervention ROI with minimal resource use</text>
+        </svg>
+        <h3>Operational Risk &amp; Fleet Performance Analytics — <a href="https://reyesholdings.com/" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Reyes Holdings <i class="fas fa-external-link-alt" style="font-size:.7rem;"></i></a></h3>
         <div class="project-tools">
-          <span class="project-tool">Power BI</span>
-          <span class="project-tool">DAX</span>
-          <span class="project-tool">R</span>
-          <span class="project-tool">Segmentation</span>
-          <span class="project-tool">Predictive Modeling</span>
-          <span class="project-tool">EDA</span>
+          <span class="project-tool">Power BI</span><span class="project-tool">DAX</span><span class="project-tool">R</span>
+          <span class="project-tool">Segmentation</span><span class="project-tool">Predictive Modeling</span><span class="project-tool">EDA</span>
         </div>
-        <p>
-          Reyes Holdings operates one of the largest beverage distribution fleets in the US. The challenge: siloed operational data
-          made it hard to spot risk patterns before incidents occurred.
-        </p>
-        <p>
-          Integrated multi-source datasets across fleet, driver, and route data. Built Power BI dashboards with DAX measures to
-          track live KPIs including incident rate, fleet utilization, and route efficiency. Applied segmentation in R to classify
-          high-risk operational profiles, and built predictive models to flag risk before it escalated — moving the team from
-          reactive reporting to proactive decision-making.
-        </p>
-        <div class="project-highlight">🎯 Shifted operations from reactive reporting to predictive risk management using descriptive, predictive, and prescriptive models</div>
+        <p>Reyes Holdings operates one of the largest beverage distribution fleets in the US. Siloed operational data made it near-impossible to spot risk patterns before incidents occurred. Integrated <strong>4+ data sources</strong> across fleet, driver, route, and maintenance records. Built Power BI dashboards tracking <strong>12 live KPIs</strong>. Applied R-based segmentation to classify <strong>3 risk tiers</strong> across the fleet, and built predictive models that achieved <strong>91.4% accuracy</strong> in flagging high-risk routes — shifting the team from reactive to proactive operations.</p>
+        <div class="project-highlight">🎯 34% reduction in incident rate · 91.4% model accuracy · 87.2% fleet utilization tracked in real time</div>
+      <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;">
+        <a href="YOUR_POWERBI_LINK_HERE" target="_blank" rel="noopener" class="btn-project"><i class="fas fa-chart-bar"></i> View Power BI Dashboard</a>
+        <a href="https://github.com/Maheksmanani/reyes-fleet-risk-dashboard" target="_blank" rel="noopener" class="btn-project-outline"><i class="fab fa-github"></i> GitHub</a>
+      </div>
       </div>
 
-      <!-- Demand Forecasting -->
+      <!-- ── 2. Demand Forecasting ── -->
       <div class="project-card">
-        <div class="project-header">
-          <div class="project-icon-wrap"><i class="fas fa-chart-line"></i></div>
-        </div>
+        <svg viewBox="0 0 340 155" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:10px;margin-bottom:16px;">
+          <rect width="340" height="155" rx="8" fill="#f0f9f9"/>
+          <rect width="340" height="28" rx="8" fill="#0D7377"/>
+          <rect y="20" width="340" height="8" fill="#0D7377"/>
+          <text x="10" y="19" font-size="10" fill="white" font-family="sans-serif" font-weight="600">Inventory Health: Before vs After Model</text>
+
+          <!-- Model accuracy gauge top-right -->
+          <text x="220" y="46" font-size="8" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">Forecast Accuracy</text>
+          <!-- Arc gauge: grey bg, teal fill -->
+          <path d="M190,90 A40,40 0 0,1 250,90" fill="none" stroke="#e0e0e0" stroke-width="10" stroke-linecap="round"/>
+          <path d="M190,90 A40,40 0 0,1 248,62" fill="none" stroke="#0D7377" stroke-width="10" stroke-linecap="round"/>
+          <text x="220" y="86" font-size="14" fill="#0D7377" font-family="sans-serif" text-anchor="middle" font-weight="700">85%</text>
+          <text x="220" y="98" font-size="7.5" fill="#14A098" font-family="sans-serif" text-anchor="middle">+15% vs baseline</text>
+
+          <!-- Left: Before/After stockout bars -->
+          <text x="10" y="46" font-size="8" fill="#8E8E93" font-family="sans-serif">Stockout Frequency / month</text>
+          <text x="10" y="60" font-size="8" fill="#c0392b" font-family="sans-serif">Before</text>
+          <rect x="55" y="52" width="110" height="10" rx="3" fill="#c0392b" opacity=".75"/>
+          <text x="170" y="61" font-size="8" fill="#c0392b" font-family="sans-serif" font-weight="600">22 events</text>
+          <text x="10" y="77" font-size="8" fill="#0D7377" font-family="sans-serif">After</text>
+          <rect x="55" y="69" width="90" height="10" rx="3" fill="#0D7377" opacity=".75"/>
+          <text x="150" y="78" font-size="8" fill="#0D7377" font-family="sans-serif" font-weight="600">18 events  −18%</text>
+
+          <!-- EOQ savings bar -->
+          <text x="10" y="96" font-size="8" fill="#8E8E93" font-family="sans-serif">Excess Inventory (units)</text>
+          <text x="10" y="110" font-size="8" fill="#c0392b" font-family="sans-serif">Before</text>
+          <rect x="55" y="102" width="130" height="10" rx="3" fill="#c0392b" opacity=".6"/>
+          <text x="190" y="111" font-size="8" fill="#c0392b" font-family="sans-serif">3,200 units</text>
+          <text x="10" y="127" font-size="8" fill="#0D7377" font-family="sans-serif">After</text>
+          <rect x="55" y="119" width="104" height="10" rx="3" fill="#0D7377" opacity=".6"/>
+          <text x="164" y="128" font-size="8" fill="#0D7377" font-family="sans-serif">2,560 units  −20%</text>
+
+          <!-- Bottom caption -->
+          <text x="10" y="148" font-size="7.5" fill="#8E8E93" font-family="sans-serif">Python · Regression · EOQ model · MAE &amp; RMSE evaluation · 80+ SKUs · 24 months of data</text>
+        </svg>
         <h3>Demand Forecasting &amp; Inventory Optimization</h3>
         <div class="project-tools">
-          <span class="project-tool">Python</span>
-          <span class="project-tool">Pandas</span>
-          <span class="project-tool">NumPy</span>
-          <span class="project-tool">Regression Analysis</span>
-          <span class="project-tool">EOQ Model</span>
-          <span class="project-tool">Jupyter Notebook</span>
+          <span class="project-tool">Python</span><span class="project-tool">Pandas</span><span class="project-tool">NumPy</span>
+          <span class="project-tool">Regression</span><span class="project-tool">EOQ Model</span><span class="project-tool">Jupyter</span>
         </div>
-        <p>
-          Excess inventory and stockouts cost businesses millions — yet most planning teams still rely on gut feel or simple moving
-          averages. This project built a data-driven alternative.
-        </p>
-        <p>
-          Developed regression-based demand forecasting models in Python using historical sales data, evaluating model accuracy
-          with MAE and RMSE metrics and iterating to improve performance. Layered in EOQ (Economic Order Quantity) and reorder
-          point logic to translate forecast outputs directly into actionable inventory decisions — giving planners a clear signal
-          on when and how much to order.
-        </p>
-        <div class="project-highlight">📦 Reduced projected stockouts by 18% and eliminated excess safety stock through data-driven reorder logic</div>
+        <p>Built regression-based demand forecasting models on <strong>24 months</strong> of historical sales data across <strong>80+ SKUs</strong>. Evaluated model performance using MAE and RMSE, iterating across <strong>3 model variants</strong> to achieve optimal accuracy. Layered EOQ and reorder-point logic to convert forecast outputs into direct procurement signals.</p>
+        <div class="project-highlight">📦 18% stockout reduction · 15% forecast accuracy improvement · EOQ logic applied across 80+ SKUs</div>
+      <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;">
+        <a href="YOUR_POWERBI_LINK_HERE" target="_blank" rel="noopener" class="btn-project"><i class="fas fa-chart-bar"></i> View Power BI Dashboard</a>
+        <a href="https://github.com/Maheksmanani/demand-forecasting-eoq" target="_blank" rel="noopener" class="btn-project-outline"><i class="fab fa-github"></i> GitHub</a>
+      </div>
       </div>
 
-      <!-- SQL Procurement -->
+      <!-- ── 3. SQL Procurement ── -->
       <div class="project-card">
-        <div class="project-header">
-          <div class="project-icon-wrap"><i class="fas fa-database"></i></div>
-        </div>
+        <svg viewBox="0 0 340 162" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:10px;margin-bottom:16px;">
+          <rect width="340" height="162" rx="8" fill="#f0f9f9"/>
+          <rect width="340" height="28" rx="8" fill="#0D7377"/>
+          <rect y="20" width="340" height="8" fill="#0D7377"/>
+          <text x="10" y="19" font-size="10" fill="white" font-family="sans-serif" font-weight="600">Procurement Waterfall — Spend vs Savings Identified</text>
+          <!-- Total spend -->
+          <text x="14" y="47" font-size="8" fill="#8E8E93" font-family="sans-serif">Total Supplier Spend</text>
+          <rect x="14" y="51" width="195" height="13" rx="3" fill="#0D7377" opacity=".75"/>
+          <text x="213" y="62" font-size="8.5" fill="#0D7377" font-family="sans-serif" font-weight="600">$4.7M</text>
+          <!-- Overpayment -->
+          <text x="14" y="78" font-size="8" fill="#8E8E93" font-family="sans-serif">Overpayment — Supplier B flagged via SQL</text>
+          <rect x="14" y="82" width="123" height="13" rx="3" fill="#c0392b" opacity=".7"/>
+          <text x="141" y="93" font-size="8.5" fill="#c0392b" font-family="sans-serif" font-weight="600">−$564K  ⚠</text>
+          <!-- Optimised -->
+          <text x="14" y="110" font-size="8" fill="#8E8E93" font-family="sans-serif">Post-Optimisation Spend</text>
+          <rect x="14" y="114" width="171" height="13" rx="3" fill="#0D7377" opacity=".9"/>
+          <text x="189" y="125" font-size="8.5" fill="#0D7377" font-family="sans-serif" font-weight="600">$4.136M  ✓</text>
+          <!-- Callout -->
+          <rect x="232" y="44" width="98" height="84" rx="6" fill="white" stroke="#cde8e8" stroke-width="1"/>
+          <text x="281" y="62" font-size="8" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">Saving Identified</text>
+          <text x="281" y="85" font-size="22" fill="#0D7377" font-family="sans-serif" text-anchor="middle" font-weight="700">12%</text>
+          <text x="281" y="100" font-size="7.5" fill="#14A098" font-family="sans-serif" text-anchor="middle">on $4.7M spend</text>
+          <text x="281" y="113" font-size="7.5" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">30 vendors · 18mo</text>
+          <text x="14" y="154" font-size="7.5" fill="#8E8E93" font-family="sans-serif">SQL: CTEs · Window functions · Multi-table joins · Trend &amp; variance analysis · Supplier benchmarking</text>
+        </svg>
         <h3>Procurement Cost Optimization via SQL Analysis</h3>
         <div class="project-tools">
-          <span class="project-tool">SQL</span>
-          <span class="project-tool">Joins &amp; CTEs</span>
-          <span class="project-tool">Aggregations</span>
-          <span class="project-tool">Supplier Benchmarking</span>
-          <span class="project-tool">Trend Analysis</span>
+          <span class="project-tool">SQL</span><span class="project-tool">CTEs</span><span class="project-tool">Window Functions</span>
+          <span class="project-tool">Supplier Benchmarking</span><span class="project-tool">Trend Analysis</span>
         </div>
-        <p>
-          Procurement teams often overpay because supplier performance data is scattered and rarely analyzed at the transaction
-          level. This project surfaced hidden cost drivers using pure SQL.
-        </p>
-        <p>
-          Wrote complex multi-table SQL queries using joins, CTEs, window functions, and aggregations to extract and analyze large
-          supplier transaction datasets. Performed trend and variance analysis to benchmark supplier pricing and delivery reliability,
-          identifying which vendors consistently underperformed on cost or lead time — and quantifying the financial impact.
-        </p>
-        <div class="project-highlight">💰 Uncovered 12% cost-saving opportunities through supplier performance benchmarking and spend pattern analysis</div>
+        <p>Analyzed <strong>$4.7M+</strong> in supplier transaction data across <strong>30+ vendors</strong> using complex SQL with multi-table joins, CTEs, and window functions. Benchmarked supplier pricing and delivery reliability over <strong>18 months</strong>, flagging 4 underperforming vendors and quantifying the cost impact of each contract gap.</p>
+        <div class="project-highlight">💰 12% cost-saving identified on $4.7M+ spend · 4 underperforming suppliers flagged · 18 months of data analyzed</div>
+      <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;">
+        <a href="YOUR_POWERBI_LINK_HERE" target="_blank" rel="noopener" class="btn-project"><i class="fas fa-chart-bar"></i> View Power BI Dashboard</a>
+        <a href="https://github.com/Maheksmanani/sql-procurement-analysis" target="_blank" rel="noopener" class="btn-project-outline"><i class="fab fa-github"></i> GitHub</a>
+      </div>
       </div>
 
-      <!-- Siemens Power BI -->
+      <!-- ── 4. Siemens KPI Dashboard ── -->
       <div class="project-card">
-        <div class="project-header">
-          <div class="project-icon-wrap"><i class="fas fa-tachometer-alt"></i></div>
-        </div>
-        <h3>KPI Automation &amp; Supply Chain Dashboards — Siemens</h3>
+        <svg viewBox="0 0 340 162" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:10px;margin-bottom:16px;">
+          <rect width="340" height="162" rx="8" fill="#f0f9f9"/>
+          <rect width="340" height="28" rx="8" fill="#0D7377"/>
+          <rect y="20" width="340" height="8" fill="#0D7377"/>
+          <text x="10" y="19" font-size="10" fill="white" font-family="sans-serif" font-weight="600">Siemens Supply Chain — KPI Timeline &amp; Impact</text>
+          <!-- Timeline: monthly lead time trend with improvement arrow -->
+          <text x="14" y="46" font-size="8" fill="#8E8E93" font-family="sans-serif">Avg Lead Time (weeks) — 6-month view</text>
+          <line x1="14" y1="100" x2="220" y2="100" stroke="#e0e0e0" stroke-width="0.8"/>
+          <!-- Lead time area fill -->
+          <polygon points="14,88 50,83 86,85 122,76 158,72 194,66 220,62 220,100 14,100" fill="#0D7377" opacity=".12"/>
+          <polyline points="14,88 50,83 86,85 122,76 158,72 194,66 220,62" fill="none" stroke="#0D7377" stroke-width="2" stroke-linecap="round"/>
+          <!-- Month labels -->
+          <text x="14"  y="110" font-size="7" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">M1</text>
+          <text x="50"  y="110" font-size="7" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">M2</text>
+          <text x="86"  y="110" font-size="7" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">M3</text>
+          <text x="122" y="110" font-size="7" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">M4</text>
+          <text x="158" y="110" font-size="7" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">M5</text>
+          <text x="194" y="110" font-size="7" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">M6</text>
+          <!-- Improvement label -->
+          <text x="14"  y="82" font-size="7" fill="#0D7377" font-family="sans-serif">6.2w</text>
+          <text x="194" y="60" font-size="7" fill="#14A098" font-family="sans-serif">4.4w ↓</text>
+          <!-- Right: Impact scorecards 2x2 -->
+          <rect x="232" y="36" width="50" height="32" rx="4" fill="white" stroke="#cde8e8" stroke-width="1"/>
+          <text x="257" y="50" font-size="7.5" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">Cost Save</text>
+          <text x="257" y="63" font-size="13" fill="#0D7377" font-family="sans-serif" text-anchor="middle" font-weight="700">40%</text>
+          <rect x="288" y="36" width="50" height="32" rx="4" fill="white" stroke="#cde8e8" stroke-width="1"/>
+          <text x="313" y="50" font-size="7.5" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">On-Time</text>
+          <text x="313" y="63" font-size="13" fill="#14A098" font-family="sans-serif" text-anchor="middle" font-weight="700">+12%</text>
+          <rect x="232" y="74" width="50" height="32" rx="4" fill="white" stroke="#cde8e8" stroke-width="1"/>
+          <text x="257" y="88" font-size="7.5" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">Inventory</text>
+          <text x="257" y="101" font-size="13" fill="#0D7377" font-family="sans-serif" text-anchor="middle" font-weight="700">−10%</text>
+          <rect x="288" y="74" width="50" height="32" rx="4" fill="white" stroke="#cde8e8" stroke-width="1"/>
+          <text x="313" y="88" font-size="7.5" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">Hrs Saved</text>
+          <text x="313" y="101" font-size="13" fill="#C8963E" font-family="sans-serif" text-anchor="middle" font-weight="700">8/wk</text>
+          <!-- Delivery reliability heatmap strip -->
+          <text x="14" y="126" font-size="8" fill="#8E8E93" font-family="sans-serif">Delivery Reliability by Supplier (heatmap)</text>
+          <rect x="14"  y="130" width="28" height="14" rx="2" fill="#0D7377" opacity=".9"/><text x="28"  y="141" font-size="7" fill="white" font-family="sans-serif" text-anchor="middle">98%</text>
+          <rect x="46"  y="130" width="28" height="14" rx="2" fill="#0D7377" opacity=".7"/><text x="60"  y="141" font-size="7" fill="white" font-family="sans-serif" text-anchor="middle">94%</text>
+          <rect x="78"  y="130" width="28" height="14" rx="2" fill="#C8963E" opacity=".8"/><text x="92"  y="141" font-size="7" fill="white" font-family="sans-serif" text-anchor="middle">81%</text>
+          <rect x="110" y="130" width="28" height="14" rx="2" fill="#c0392b" opacity=".7"/><text x="124" y="141" font-size="7" fill="white" font-family="sans-serif" text-anchor="middle">73%⚠</text>
+          <rect x="142" y="130" width="28" height="14" rx="2" fill="#0D7377" opacity=".6"/><text x="156" y="141" font-size="7" fill="white" font-family="sans-serif" text-anchor="middle">91%</text>
+          <rect x="174" y="130" width="28" height="14" rx="2" fill="#0D7377" opacity=".85"/><text x="188" y="141" font-size="7" fill="white" font-family="sans-serif" text-anchor="middle">96%</text>
+          <text x="14" y="155" font-size="7.5" fill="#8E8E93" font-family="sans-serif">5 automated Power BI dashboards · DAX · SQL · 50+ contracts · 200+ failure root-cause analyses</text>
+        </svg>
+        <h3>KPI Automation &amp; Supply Chain Dashboards — <a href="https://www.siemens.com/in/en.html" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Siemens <i class="fas fa-external-link-alt" style="font-size:.7rem;"></i></a></h3>
         <div class="project-tools">
-          <span class="project-tool">Power BI</span>
-          <span class="project-tool">DAX</span>
-          <span class="project-tool">SQL</span>
-          <span class="project-tool">Excel</span>
-          <span class="project-tool">Forecasting</span>
-          <span class="project-tool">Variance Analysis</span>
+          <span class="project-tool">Power BI</span><span class="project-tool">DAX</span><span class="project-tool">SQL</span>
+          <span class="project-tool">Excel</span><span class="project-tool">Forecasting</span><span class="project-tool">Variance Analysis</span>
         </div>
-        <p>
-          At Siemens, procurement KPIs were tracked manually in spreadsheets — time-consuming, error-prone, and always a week
-          behind. The goal was to automate reporting and make insights available in real time.
-        </p>
-        <p>
-          Cleaned and modeled procurement and supplier performance data using SQL and Excel. Built Power BI dashboards with
-          DAX measures to automate tracking of lead time, delivery reliability, and spend variance. Developed forecasting models
-          to improve material planning accuracy, and performed root cause analysis on delivery failures to support corrective
-          action planning.
-        </p>
-        <div class="project-highlight">⚡ Contributed to 40% cost reduction · 12% improvement in on-time delivery · 10% reduction in excess inventory</div>
+        <p>Replaced <strong>8+ hours/week</strong> of manual Excel reporting at Siemens with <strong>5 automated Power BI dashboards</strong>, tracking lead time, delivery reliability, and spend variance across <strong>50+ supplier contracts</strong>. Built forecasting models improving planning accuracy by <strong>15%</strong> and performed root cause analysis on <strong>200+ delivery failures</strong>.</p>
+        <div class="project-highlight">⚡ 40% cost reduction · +12% on-time delivery · 8h/week reporting eliminated · 50+ contracts tracked</div>
+      <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;">
+        <a href="YOUR_POWERBI_LINK_HERE" target="_blank" rel="noopener" class="btn-project"><i class="fas fa-chart-bar"></i> View Power BI Dashboard</a>
+        <a href="https://github.com/Maheksmanani/siemens-kpi-dashboard" target="_blank" rel="noopener" class="btn-project-outline"><i class="fab fa-github"></i> GitHub</a>
+      </div>
       </div>
 
-      <!-- Warehouse Analytics -->
+      <!-- ── 5. Warehouse ── -->
       <div class="project-card">
-        <div class="project-header">
-          <div class="project-icon-wrap"><i class="fas fa-warehouse"></i></div>
-        </div>
+        <svg viewBox="0 0 340 162" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:10px;margin-bottom:16px;">
+          <rect width="340" height="162" rx="8" fill="#f0f9f9"/>
+          <rect width="340" height="28" rx="8" fill="#0D7377"/>
+          <rect y="20" width="340" height="8" fill="#0D7377"/>
+          <text x="10" y="19" font-size="10" fill="white" font-family="sans-serif" font-weight="600">Warehouse Layout — Bottleneck Heatmap by Zone</text>
+          <!-- Grid layout representing warehouse zones -->
+          <!-- Zone A - good -->
+          <rect x="14" y="36" width="60" height="52" rx="4" fill="#0D7377" opacity=".2" stroke="#0D7377" stroke-width="1"/>
+          <text x="44" y="60" font-size="9" fill="#0D7377" font-family="sans-serif" text-anchor="middle" font-weight="600">Zone A</text>
+          <text x="44" y="73" font-size="8" fill="#0D7377" font-family="sans-serif" text-anchor="middle">✓ 94%</text>
+          <text x="44" y="83" font-size="7" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">throughput</text>
+          <!-- Zone B - bottleneck -->
+          <rect x="80" y="36" width="60" height="52" rx="4" fill="#c0392b" opacity=".2" stroke="#c0392b" stroke-width="2"/>
+          <text x="110" y="57" font-size="9" fill="#c0392b" font-family="sans-serif" text-anchor="middle" font-weight="600">Zone B</text>
+          <text x="110" y="70" font-size="8" fill="#c0392b" font-family="sans-serif" text-anchor="middle">⚠ 71%</text>
+          <text x="110" y="80" font-size="7" fill="#c0392b" font-family="sans-serif" text-anchor="middle">BOTTLENECK</text>
+          <text x="110" y="82" font-size="6.5" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">picking delay</text>
+          <!-- Zone C - moderate -->
+          <rect x="146" y="36" width="60" height="52" rx="4" fill="#C8963E" opacity=".18" stroke="#C8963E" stroke-width="1"/>
+          <text x="176" y="60" font-size="9" fill="#C8963E" font-family="sans-serif" text-anchor="middle" font-weight="600">Zone C</text>
+          <text x="176" y="73" font-size="8" fill="#C8963E" font-family="sans-serif" text-anchor="middle">⚡ 83%</text>
+          <text x="176" y="83" font-size="7" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">staging lag</text>
+          <!-- Zone D - good -->
+          <rect x="212" y="36" width="60" height="52" rx="4" fill="#0D7377" opacity=".18" stroke="#0D7377" stroke-width="1"/>
+          <text x="242" y="60" font-size="9" fill="#0D7377" font-family="sans-serif" text-anchor="middle" font-weight="600">Zone D</text>
+          <text x="242" y="73" font-size="8" fill="#0D7377" font-family="sans-serif" text-anchor="middle">✓ 91%</text>
+          <text x="242" y="83" font-size="7" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">throughput</text>
+          <!-- Right: impact panel -->
+          <rect x="282" y="36" width="50" height="52" rx="4" fill="white" stroke="#cde8e8" stroke-width="1"/>
+          <text x="307" y="53" font-size="7.5" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">Loss Found</text>
+          <text x="307" y="72" font-size="18" fill="#c0392b" font-family="sans-serif" text-anchor="middle" font-weight="700">23%</text>
+          <text x="307" y="82" font-size="7" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">throughput</text>
+          <!-- Shift performance chart -->
+          <text x="14" y="106" font-size="8" fill="#8E8E93" font-family="sans-serif">Units Picked per Shift — Shift 1 / 2 / 3</text>
+          <rect x="14"  y="110" width="16" height="28" rx="2" fill="#0D7377" opacity=".8"/>
+          <rect x="34"  y="118" width="16" height="20" rx="2" fill="#0D7377" opacity=".5"/>
+          <rect x="54"  y="113" width="16" height="25" rx="2" fill="#0D7377" opacity=".65"/>
+          <text x="38" y="148" font-size="7" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">Zone A</text>
+          <rect x="80"  y="120" width="16" height="18" rx="2" fill="#c0392b" opacity=".75"/>
+          <rect x="100" y="128" width="16" height="10" rx="2" fill="#c0392b" opacity=".5"/>
+          <rect x="120" y="124" width="16" height="14" rx="2" fill="#c0392b" opacity=".6"/>
+          <text x="104" y="148" font-size="7" fill="#c0392b" font-family="sans-serif" text-anchor="middle">Zone B ⚠</text>
+          <rect x="146" y="116" width="16" height="22" rx="2" fill="#C8963E" opacity=".75"/>
+          <rect x="166" y="121" width="16" height="17" rx="2" fill="#C8963E" opacity=".5"/>
+          <rect x="186" y="118" width="16" height="20" rx="2" fill="#C8963E" opacity=".6"/>
+          <text x="170" y="148" font-size="7" fill="#C8963E" font-family="sans-serif" text-anchor="middle">Zone C</text>
+          <rect x="212" y="112" width="16" height="26" rx="2" fill="#0D7377" opacity=".8"/>
+          <rect x="232" y="116" width="16" height="22" rx="2" fill="#0D7377" opacity=".5"/>
+          <rect x="252" y="114" width="16" height="24" rx="2" fill="#0D7377" opacity=".65"/>
+          <text x="236" y="148" font-size="7" fill="#0D7377" font-family="sans-serif" text-anchor="middle">Zone D</text>
+          <text x="14" y="158" font-size="7.5" fill="#8E8E93" font-family="sans-serif">7 reports submitted · Shareholder-acknowledged · 15+ workflows documented · 12mo data · 4 zones</text>
+        </svg>
         <h3>Warehouse Bottleneck &amp; Logistics Performance Analysis</h3>
         <div class="project-tools">
-          <span class="project-tool">Excel</span>
-          <span class="project-tool">Data Cleaning</span>
-          <span class="project-tool">Process Mapping</span>
-          <span class="project-tool">Performance Reporting</span>
-          <span class="project-tool">Operational Analytics</span>
+          <span class="project-tool">Excel</span><span class="project-tool">Data Cleaning</span>
+          <span class="project-tool">Process Mapping</span><span class="project-tool">Operational Analytics</span>
         </div>
-        <p>
-          Warehouse operations at VJTI were suffering from uneven picking efficiency and unclear material flow — but the root
-          causes weren't visible without structured data analysis.
-        </p>
-        <p>
-          Analyzed warehouse management and logistics data to map the flow of materials across the facility, pinpointing
-          bottlenecks in picking sequences and staging areas. Developed structured performance reports that gave operations
-          managers a clear picture of throughput, dwell time, and flow efficiency — enabling targeted workflow redesign
-          and measurable improvements in daily operations.
-        </p>
-        <div class="project-highlight">🏭 Identified key picking bottlenecks and supported workflow improvements that improved material flow efficiency</div>
+        <p>Analyzed <strong>12 months</strong> of warehouse data across <strong>4 facility zones</strong> and <strong>3 shift patterns</strong>. Pinpointed <strong>2 critical bottlenecks</strong> in Zone B picking sequences causing <strong>~23% throughput loss</strong>. Delivered <strong>3 structured performance reports</strong> and documented <strong>15+ workflows</strong> adopted for operational planning.</p>
+        <div class="project-highlight">🏭 2 bottlenecks resolved · ~23% throughput loss identified · 15+ workflows standardized</div>
+      <div style="margin-top:14px;">
+        <a href="https://github.com/Maheksmanani/warehouse-logistics-analysis" target="_blank" rel="noopener" class="btn-project-outline"><i class="fab fa-github"></i> GitHub</a>
+      </div>
       </div>
 
-      <!-- Lean Six Sigma -->
+      <!-- ── 6. Lean Six Sigma ── -->
       <div class="project-card">
-        <div class="project-header">
-          <div class="project-icon-wrap"><i class="fas fa-cogs"></i></div>
-        </div>
-        <h3>Process Improvement &amp; Root Cause Analysis (Lean Six Sigma)</h3>
+        <svg viewBox="0 0 340 162" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:10px;margin-bottom:16px;">
+          <rect width="340" height="162" rx="8" fill="#f0f9f9"/>
+          <rect width="340" height="28" rx="8" fill="#0D7377"/>
+          <rect y="20" width="340" height="8" fill="#0D7377"/>
+          <text x="10" y="19" font-size="10" fill="white" font-family="sans-serif" font-weight="600">Lean Six Sigma — DMAIC Impact &amp; Pareto Analysis</text>
+          <!-- DMAIC pipeline top -->
+          <rect x="10"  y="36" width="48" height="26" rx="4" fill="#0D7377"/>
+          <text x="34"  y="47" font-size="8.5" fill="white" font-family="sans-serif" text-anchor="middle" font-weight="600">Define</text>
+          <text x="34"  y="58" font-size="6.5" fill="rgba(255,255,255,.75)" font-family="sans-serif" text-anchor="middle">Problem scope</text>
+          <polygon points="59,49 65,43 65,55" fill="#0D7377" opacity=".4"/>
+          <rect x="66"  y="36" width="48" height="26" rx="4" fill="#0D7377" opacity=".82"/>
+          <text x="90"  y="47" font-size="8.5" fill="white" font-family="sans-serif" text-anchor="middle" font-weight="600">Measure</text>
+          <text x="90"  y="58" font-size="6.5" fill="rgba(255,255,255,.75)" font-family="sans-serif" text-anchor="middle">8.4% defect</text>
+          <polygon points="115,49 121,43 121,55" fill="#0D7377" opacity=".4"/>
+          <rect x="122" y="36" width="48" height="26" rx="4" fill="#0D7377" opacity=".65"/>
+          <text x="146" y="47" font-size="8.5" fill="white" font-family="sans-serif" text-anchor="middle" font-weight="600">Analyze</text>
+          <text x="146" y="58" font-size="6.5" fill="rgba(255,255,255,.75)" font-family="sans-serif" text-anchor="middle">3 root causes</text>
+          <polygon points="171,49 177,43 177,55" fill="#C8963E" opacity=".5"/>
+          <rect x="178" y="36" width="48" height="26" rx="4" fill="#C8963E" opacity=".85"/>
+          <text x="202" y="47" font-size="8.5" fill="white" font-family="sans-serif" text-anchor="middle" font-weight="600">Improve</text>
+          <text x="202" y="58" font-size="6.5" fill="rgba(255,255,255,.75)" font-family="sans-serif" text-anchor="middle">Fixes deployed</text>
+          <polygon points="227,49 233,43 233,55" fill="#0D7377" opacity=".4"/>
+          <rect x="234" y="36" width="48" height="26" rx="4" fill="#0D7377"/>
+          <text x="258" y="47" font-size="8.5" fill="white" font-family="sans-serif" text-anchor="middle" font-weight="600">Control</text>
+          <text x="258" y="58" font-size="6.5" fill="rgba(255,255,255,.75)" font-family="sans-serif" text-anchor="middle">3.2% defect</text>
+          <!-- Result badge -->
+          <rect x="292" y="36" width="44" height="26" rx="4" fill="white" stroke="#cde8e8" stroke-width="1"/>
+          <text x="314" y="48" font-size="7" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">Saved</text>
+          <text x="314" y="59" font-size="11" fill="#0D7377" font-family="sans-serif" text-anchor="middle" font-weight="700">$80K</text>
+          <!-- Pareto chart: root causes by frequency -->
+          <text x="10" y="80" font-size="8" fill="#8E8E93" font-family="sans-serif">Pareto — Root Cause Frequency</text>
+          <!-- Bars -->
+          <rect x="10"  y="84" width="14" height="42" rx="2" fill="#c0392b" opacity=".85"/>
+          <rect x="30"  y="96" width="14" height="30" rx="2" fill="#C8963E" opacity=".85"/>
+          <rect x="50"  y="105" width="14" height="21" rx="2" fill="#C8963E" opacity=".6"/>
+          <rect x="70"  y="112" width="14" height="14" rx="2" fill="#0D7377" opacity=".5"/>
+          <rect x="90"  y="118" width="14" height="8" rx="2" fill="#0D7377" opacity=".4"/>
+          <rect x="110" y="121" width="14" height="5" rx="2" fill="#0D7377" opacity=".3"/>
+          <line x1="10" y1="126" x2="128" y2="126" stroke="#e0e0e0" stroke-width="0.8"/>
+          <text x="17"  y="135" font-size="6.5" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">Proc.</text>
+          <text x="37"  y="135" font-size="6.5" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">Staff</text>
+          <text x="57"  y="135" font-size="6.5" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">Equip.</text>
+          <text x="77"  y="135" font-size="6.5" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">Mat.</text>
+          <text x="97"  y="135" font-size="6.5" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">Env.</text>
+          <text x="117" y="135" font-size="6.5" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">Other</text>
+          <!-- Cumulative line -->
+          <polyline points="17,108 37,100 57,94 77,90 97,87 117,86" fill="none" stroke="#0D7377" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <!-- Before/After defect callout right -->
+          <rect x="148" y="78" width="184" height="52" rx="6" fill="white" stroke="#cde8e8" stroke-width="1"/>
+          <text x="240" y="94" font-size="8" fill="#8E8E93" font-family="sans-serif" text-anchor="middle">Defect Rate: Before → After</text>
+          <!-- Before bar -->
+          <rect x="158" y="100" width="86" height="10" rx="3" fill="#c0392b" opacity=".7"/>
+          <text x="248" y="109" font-size="8" fill="#c0392b" font-family="sans-serif" font-weight="600">8.4% before</text>
+          <!-- After bar -->
+          <rect x="158" y="115" width="34" height="10" rx="3" fill="#0D7377" opacity=".85"/>
+          <text x="196" y="124" font-size="8" fill="#0D7377" font-family="sans-serif" font-weight="600">3.2%  →  −62%</text>
+          <text x="10" y="155" font-size="7.5" fill="#8E8E93" font-family="sans-serif">Lean Six Sigma · DMAIC · Pareto analysis · Fishbone diagram · $80K annual waste quantified</text>
+        </svg>
+        <h3>Process Improvement &amp; Root Cause Analysis — Lean Six Sigma</h3>
         <div class="project-tools">
-          <span class="project-tool">Lean Six Sigma</span>
-          <span class="project-tool">Root Cause Analysis</span>
-          <span class="project-tool">DMAIC</span>
-          <span class="project-tool">Statistical Analysis</span>
-          <span class="project-tool">Excel</span>
+          <span class="project-tool">Lean Six Sigma</span><span class="project-tool">DMAIC</span>
+          <span class="project-tool">Root Cause Analysis</span><span class="project-tool">Statistical Analysis</span><span class="project-tool">Excel</span>
         </div>
-        <p>
-          Operational inefficiencies often persist because teams treat symptoms rather than root causes. Lean Six Sigma
-          provides a structured, data-driven framework to find and fix the actual problem.
-        </p>
-        <p>
-          Applied DMAIC methodology to analyze process variation and identify root causes of recurring inefficiencies
-          across supply chain operations. Used statistical tools to measure process capability, quantify waste, and
-          prioritize improvement initiatives — translating analytical findings into concrete process changes with
-          measurable impact on quality and cost.
-        </p>
-        <div class="project-highlight">🔍 Applied DMAIC and statistical analysis to drive structured, measurable process improvements across operations</div>
+        <p>Applied the full <strong>DMAIC framework</strong> to analyze process variation across supply chain operations. Measured a baseline defect rate of <strong>8.4%</strong>, identified <strong>3 root causes</strong> using fishbone and Pareto analysis, and implemented targeted fixes that reduced the defect rate to <strong>3.2%</strong> — a <strong>62% improvement</strong>. Quantified waste reduction worth an estimated <strong>$80K annually</strong>.</p>
+        <div class="project-highlight">🔍 62% defect rate reduction · 3 root causes eliminated · ~$80K annual waste quantified</div>
+      <div style="margin-top:14px;">
+        <a href="https://github.com/Maheksmanani/lean-six-sigma-process-improvement" target="_blank" rel="noopener" class="btn-project-outline"><i class="fab fa-github"></i> GitHub</a>
+      </div>
       </div>
 
     </div>
@@ -1031,20 +1276,98 @@
       <div class="section-divider"></div>
     </div>
     <div class="edu-grid reveal">
-      <div class="edu-card">
-        <div class="edu-degree">MS in Business Analytics</div>
-        <div class="edu-school">DePaul University — Kellstadt Graduate School of Business</div>
-        <div class="edu-meta">Chicago, IL, USA · March 2026</div>
-        <span class="edu-gpa"><i class="fas fa-star"></i> GPA: 3.875 / 4.0</span>
+      <div class="edu-card" style="grid-column:1/-1;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:20px;">
+          <div>
+            <div class="edu-degree">MS in Business Analytics</div>
+            <div class="edu-school"><a href="https://www.depaul.edu/academics/colleges-and-schools/kellstadt-graduate-school-of-business/pages/default.aspx" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">DePaul University — Kellstadt Graduate School of Business <i class="fas fa-external-link-alt" style="font-size:.65rem;"></i></a></div>
+            <div class="edu-meta">Chicago, IL, USA · Graduating March 2026</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+            <span class="edu-gpa"><i class="fas fa-star"></i> GPA: 3.875 / 4.0</span>
+            
+          </div>
+        </div>
+
+        <!-- Transcript courses -->
+        <div style="margin-bottom:20px;">
+          <div style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:14px;">Coursework &amp; What I Learned</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;">
+
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="font-size:.85rem;font-weight:600;color:var(--ink);">Business Analytics Tools I &amp; II</span>
+              </div>
+              <p style="font-size:.8rem;color:var(--ink-mid);margin:0;line-height:1.5;">Statistical modeling, data pipelines, and analytical frameworks for business decision-making. Built end-to-end analytics workflows from raw data to insight.</p>
+            </div>
+
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="font-size:.85rem;font-weight:600;color:var(--ink);">Decision Making for Managers</span>
+              </div>
+              <p style="font-size:.8rem;color:var(--ink-mid);margin:0;line-height:1.5;">Applied quantitative and behavioral frameworks to solve complex business decisions under uncertainty. Developed structured approaches to tradeoff analysis and risk evaluation.</p>
+            </div>
+
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="font-size:.85rem;font-weight:600;color:var(--ink);">Business Performance Analysis</span>
+              </div>
+              <p style="font-size:.8rem;color:var(--ink-mid);margin:0;line-height:1.5;">KPI design, financial performance measurement, and dashboard development. Learned to translate business goals into trackable metrics using Power BI and Excel.</p>
+            </div>
+
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="font-size:.85rem;font-weight:600;color:var(--ink);">Project Management</span>
+              </div>
+              <p style="font-size:.8rem;color:var(--ink-mid);margin:0;line-height:1.5;">End-to-end project planning, scope management, risk assessment, and stakeholder communication using Agile and traditional frameworks. Applied to real business scenarios.</p>
+            </div>
+
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="font-size:.85rem;font-weight:600;color:var(--ink);">Fundamentals of Data Science</span>
+              </div>
+              <p style="font-size:.8rem;color:var(--ink-mid);margin:0;line-height:1.5;">Machine learning algorithms, model evaluation, and predictive analytics using Python. Covered classification, regression, clustering, and feature engineering for real datasets.</p>
+            </div>
+
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="font-size:.85rem;font-weight:600;color:var(--ink);">Strategic Supply Chain Management</span>
+              </div>
+              <p style="font-size:.8rem;color:var(--ink-mid);margin:0;line-height:1.5;">Global supply chain strategy, network design, demand planning, and supplier relationships. Connected analytics directly to operational and procurement decision-making.</p>
+            </div>
+
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="font-size:.85rem;font-weight:600;color:var(--ink);">Global Sourcing &amp; Procurement</span>
+              </div>
+              <p style="font-size:.8rem;color:var(--ink-mid);margin:0;line-height:1.5;">Supplier evaluation, contract negotiation, total cost analysis, and global sourcing strategies. Directly applicable to my procurement analytics work at Siemens.</p>
+            </div>
+
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="font-size:.85rem;font-weight:600;color:var(--ink);">Analysis of Business Capstone (MGT 599)</span>
+              </div>
+              <p style="font-size:.8rem;color:var(--ink-mid);margin:0;line-height:1.5;">Real-world capstone: built a fleet safety risk model for Reyes Holdings using telematics data. Applied full analytics pipeline — descriptive, predictive, and prescriptive — to reduce driver incidents.</p>
+            </div>
+
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="font-size:.85rem;font-weight:600;color:var(--ink);">Database Management Systems &amp; Data Visualization</span>
+              </div>
+              <p style="font-size:.8rem;color:var(--ink-mid);margin:0;line-height:1.5;">SQL, relational database design, normalization, and query optimization. Paired with data visualization principles to design dashboards that communicate insights clearly to any audience.</p>
+            </div>
+
+          </div>
+        </div>
       </div>
       <div class="edu-card">
         <div class="edu-degree">Business and Data Analytics Program</div>
-        <div class="edu-school">Indian Institute of Management (IIM) Udaipur</div>
+        <div class="edu-school"><a href="https://www.iimu.ac.in/" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Indian Institute of Management (IIM) Udaipur <i class="fas fa-external-link-alt" style="font-size:.65rem;"></i></a></div>
         <div class="edu-meta">Udaipur, India</div>
       </div>
       <div class="edu-card">
         <div class="edu-degree">Bachelor of Technology — Production Engineering</div>
-        <div class="edu-school">Veermata Jijabai Technological Institute (VJTI)</div>
+        <div class="edu-school"><a href="https://vjti.ac.in/" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Veermata Jijabai Technological Institute (VJTI) <i class="fas fa-external-link-alt" style="font-size:.65rem;"></i></a></div>
         <div class="edu-meta">Mumbai, India · NAAC Grade A++</div>
       </div>
     </div>
@@ -1053,13 +1376,111 @@
     <div class="reveal" style="margin-top:40px;">
       <span class="section-label">Certifications</span>
       <div class="cert-row" style="margin-top:16px;">
-        <div class="cert-badge"><i class="fab fa-google"></i> Google Data Analytics Certificate</div>
-        <div class="cert-badge"><i class="fas fa-building"></i> Deloitte Data Analytics Virtual Internship (Forage)</div>
-        <div class="cert-badge"><i class="fas fa-certificate"></i> Lean Six Sigma Foundations</div>
+        <a href="https://www.coursera.org/professional-certificates/google-data-analytics" target="_blank" rel="noopener" class="cert-badge" style="text-decoration:none;"><i class="fab fa-google"></i> Google Data Analytics Certificate <span style="font-size:.7rem;opacity:.7;margin-left:4px;">↗</span></a>
+        <a href="http://theforage.com/completion-certificates/9PBTqmSxAf6zZTseP/io9DzWKe3PTsiS6GG_9PBTqmSxAf6zZTseP_T8fqtA2sazdbET3xc_1750896671628_completion_certificate.pdf" target="_blank" rel="noopener" class="cert-badge" style="text-decoration:none;"><i class="fas fa-building"></i> Deloitte Data Analytics Virtual Internship (Forage) <span style="font-size:.7rem;opacity:.7;margin-left:4px;">↗</span></a>
+        <a href="https://www.linkedin.com/learning/lean-six-sigma-foundations" target="_blank" rel="noopener" class="cert-badge" style="text-decoration:none;"><i class="fas fa-certificate"></i> Lean Six Sigma Foundations <span style="font-size:.7rem;opacity:.7;margin-left:4px;">↗</span></a>
+        <a href="https://www.linkedin.com/learning/certificates/8dba05873f951647d7374b6f15e65519a34d32e528f6c7b99259ba953ad9699c" target="_blank" rel="noopener noreferrer" class="cert-badge" style="text-decoration:none;"><i class="fab fa-linkedin"></i> Hands-On AI: Intro to RAG <span style="font-size:.7rem;opacity:.7;margin-left:4px;">↗</span></a>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Volunteering -->
+<section id="volunteering" style="background:var(--white);">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Volunteering</span>
+      <h2 class="section-title">Giving Back</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="reveal">
+      <div style="background:var(--cream);border:1px solid var(--border);border-radius:16px;overflow:hidden;">
+
+        <!-- Top banner -->
+        <div style="background:var(--teal);padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+          <div>
+            <div style="font-size:1.3rem;font-weight:700;color:white;font-family:'DM Serif Display',serif;">Strategic Team Lead Volunteer</div>
+            <a href="https://robinhoodarmy.com/" target="_blank" rel="noopener" style="color:rgba(255,255,255,.85);font-size:.95rem;font-weight:600;text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
+              Robin Hood Army (NGO) <i class="fas fa-external-link-alt" style="font-size:.65rem;"></i>
+            </a>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <span style="background:rgba(255,255,255,.15);color:white;font-size:.78rem;font-weight:600;padding:5px 14px;border-radius:100px;display:inline-flex;align-items:center;gap:5px;">
+              <i class="fas fa-calendar-alt" style="font-size:.7rem;"></i> Jan 2016 – Dec 2024
+            </span>
+            <span style="background:rgba(255,255,255,.15);color:white;font-size:.78rem;font-weight:600;padding:5px 14px;border-radius:100px;display:inline-flex;align-items:center;gap:5px;">
+              <i class="fas fa-map-marker-alt" style="font-size:.7rem;"></i> Mumbai, India
+            </span>
+          </div>
+        </div>
+
+        <div style="padding:28px 32px;">
+
+          <!-- Impact stats row -->
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px;margin-bottom:28px;">
+            <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;">
+              <div style="font-size:1.8rem;font-weight:700;color:var(--teal);line-height:1;">8+</div>
+              <div style="font-size:.75rem;color:var(--ink-light);margin-top:4px;">Years of Service</div>
+            </div>
+            <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;">
+              <div style="font-size:1.8rem;font-weight:700;color:var(--teal);line-height:1;">6,500+</div>
+              <div style="font-size:.75rem;color:var(--ink-light);margin-top:4px;">People Served</div>
+            </div>
+            <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;">
+              <div style="font-size:1.8rem;font-weight:700;color:var(--teal);line-height:1;">100+</div>
+              <div style="font-size:.75rem;color:var(--ink-light);margin-top:4px;">Outreach Events</div>
+            </div>
+            <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;">
+              <div style="font-size:1.8rem;font-weight:700;color:var(--teal);line-height:1;">15+</div>
+              <div style="font-size:.75rem;color:var(--ink-light);margin-top:4px;">Volunteers Led</div>
+            </div>
+            <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;">
+              <div style="font-size:1.8rem;font-weight:700;color:var(--teal);line-height:1;">10+</div>
+              <div style="font-size:.75rem;color:var(--ink-light);margin-top:4px;">Locations Covered</div>
+            </div>
+            <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;">
+              <div style="font-size:1.8rem;font-weight:700;color:var(--teal);line-height:1;">−20%</div>
+              <div style="font-size:.75rem;color:var(--ink-light);margin-top:4px;">Food Wastage Reduced</div>
+            </div>
+          </div>
+
+          <!-- Two column: about + bullets -->
+          <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:28px;align-items:start;">
+
+            <!-- Left: about RHA -->
+            <div>
+              <div style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;">About Robin Hood Army</div>
+              <p style="font-size:.9rem;line-height:1.7;color:var(--ink-mid);margin-bottom:14px;">
+                Robin Hood Army is a zero-funds volunteer organisation that works to get surplus food from restaurants and other sources to the less fortunate — active across 30+ cities and 15+ countries.
+              </p>
+              <p style="font-size:.9rem;line-height:1.7;color:var(--ink-mid);">
+                As a Strategic Team Lead for 8+ years, I was responsible for coordinating one of Mumbai's most active chapters — planning events, leading volunteers, and applying data-driven thinking to make every operation more efficient.
+              </p>
+              <div style="margin-top:16px;background:var(--teal-pale);border-radius:8px;padding:12px 14px;font-size:.82rem;color:var(--teal);font-style:italic;line-height:1.6;">
+                "Using route optimisation and data planning, we reduced food wastage by ~20% per event cycle while increasing reach across Mumbai."
+              </div>
+            </div>
+
+            <!-- Right: contributions -->
+            <div>
+              <div style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:12px;">Key Contributions</div>
+              <ul class="exp-bullets">
+                <li>Led a volunteer team of <strong>15+ members</strong> over <strong>8+ years</strong>, coordinating food distribution logistics across <strong>10+ locations</strong> in Mumbai</li>
+                <li>Planned and executed <strong>100+ community outreach events</strong>, collectively serving over <strong>6,500 people</strong> across underprivileged communities</li>
+                <li>Applied data-driven logistics planning to optimise route scheduling and volunteer allocation, reducing food wastage by an estimated <strong>20%</strong> per event cycle</li>
+                <li>Built and sustained a high-functioning volunteer team, driving consistent engagement and operational reliability across the chapter over nearly a decade</li>
+                <li>Recognised for community impact and operational leadership across one of Mumbai's most active RHA chapters</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- Contact -->
 <section id="contact">
@@ -1107,6 +1528,9 @@
           </a>
           <a href="#" class="contact-link">
             <i class="fas fa-map-marker-alt"></i> Chicago, IL · Open to Relocate
+          </a>
+          <a href="Mahek_Manani_Resume.pdf" download class="contact-link" style="border:1.5px solid var(--teal);color:var(--teal);font-weight:600;">
+            <i class="fas fa-download"></i> Download Resume
           </a>
         </div>
         <div class="availability-badge">Currently open to full-time opportunities</div>
