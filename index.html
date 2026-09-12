@@ -1,872 +1,1403 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mahek Manani – Data &amp; Supply Chain Analytics Portfolio</title>
+  <meta name="description" content="Mahek Manani — Data Analyst, Business Analyst and Supply Chain Analytics professional specializing in SQL, Python, Power BI, Tableau and predictive analytics." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* ── Variables ── */
+    :root {
+      --cream:   #FAF8F4;
+      --white:   #FFFFFF;
+      --ink:     #1C1C1E;
+      --ink-mid: #4A4A4F;
+      --ink-light: #8E8E93;
+      --teal:    #0D7377;
+      --teal-light: #14A098;
+      --teal-pale: #E6F4F4;
+      --gold:    #C8963E;
+      --border:  #E5E1D8;
+      --shadow:  0 4px 24px rgba(28,28,30,0.08);
+      --shadow-lg: 0 12px 48px rgba(28,28,30,0.12);
+    }
 
-    <meta name="description"
-          content="Mahek Manani — Data Analyst, Business Analyst and Supply Chain Analytics professional specializing in SQL, Python, Power BI, Tableau and predictive analytics.">
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
 
-    <meta name="keywords"
-          content="Mahek Manani, Data Analyst, Business Analyst, Supply Chain Analyst, SQL, Python, Power BI, Tableau">
+    /* ── Scroll progress ── */
+    #progress {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: var(--teal); width: 0%; z-index: 200;
+      transition: width .1s linear;
+    }
 
-    <title>Mahek Manani | Data & Supply Chain Analytics</title>
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 3px; left: 0; right: 0;
+      height: 68px; background: rgba(250,248,244,0.92);
+      backdrop-filter: blur(12px); z-index: 100;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 5%;
+    }
+    .nav-inner {
+      width: 100%; max-width: 1200px; margin: auto;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem; color: var(--ink); text-decoration: none;
+      letter-spacing: .01em;
+    }
+    .logo span { color: var(--teal); }
+    .nav-links { display: flex; list-style: none; gap: 2.2rem; }
+    .nav-links a {
+      font-size: .9rem; font-weight: 500; color: var(--ink-mid);
+      text-decoration: none; letter-spacing: .02em;
+      transition: color .25s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--teal); }
+    .nav-toggle {
+      display: none; background: none; border: none;
+      font-size: 1.2rem; color: var(--ink); cursor: pointer;
+    }
+    @media(max-width:768px){
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none; flex-direction: column; gap: 0;
+        position: absolute; top: 68px; right: 0;
+        width: min(280px, 88vw);
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 0 0 12px 12px;
+        overflow: hidden; box-shadow: var(--shadow-lg);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li a { display: block; padding: 14px 20px; border-bottom: 1px solid var(--border); }
+    }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    /* ── Sections ── */
+    section { padding: 100px 5%; }
+    .section-label {
+      display: inline-block;
+      font-size: .75rem; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.6rem; line-height: 1.2;
+      color: var(--ink); margin-bottom: 14px;
+    }
+    .section-divider {
+      width: 48px; height: 3px;
+      background: var(--teal); border-radius: 2px;
+      margin-bottom: 50px;
+    }
+    .container { max-width: 1100px; margin: auto; }
 
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
-          rel="stylesheet">
+    /* ── Hero ── */
+    #home {
+      min-height: 100vh;
+      background: var(--white);
+      display: flex; align-items: center;
+      padding-top: 90px;
+      position: relative; overflow: hidden;
+    }
+    #home::before {
+      content: '';
+      position: absolute; top: -80px; right: -80px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(13,115,119,.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #home::after {
+      content: '';
+      position: absolute; bottom: -60px; left: -60px;
+      width: 360px; height: 360px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,150,62,.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 60px; align-items: center;
+      position: relative; z-index: 2;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--teal-pale); color: var(--teal);
+      font-size: .8rem; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; padding: 6px 14px;
+      border-radius: 100px; margin-bottom: 22px;
+      animation: fadeUp .8s ease both;
+    }
+    .hero-tag::before {
+      content: ''; width: 7px; height: 7px;
+      background: var(--teal); border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100%{ opacity:1; transform:scale(1); }
+      50%{ opacity:.4; transform:scale(1.4); }
+    }
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 6vw, 5rem);
+      line-height: 1.05; color: var(--ink);
+      margin-bottom: 18px;
+      animation: fadeUp .8s .15s ease both;
+    }
+    .hero-name em { color: var(--teal); font-style: italic; }
+    .hero-sub {
+      font-size: 1.15rem; color: var(--ink-mid);
+      line-height: 1.65; max-width: 560px;
+      margin-bottom: 36px;
+      animation: fadeUp .8s .3s ease both;
+    }
+    .hero-cta {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      animation: fadeUp .8s .45s ease both;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 13px 26px; border-radius: 8px;
+      font-size: .95rem; font-weight: 600;
+      text-decoration: none; transition: all .25s;
+      cursor: pointer; border: none;
+    }
+    .btn-primary {
+      background: var(--teal); color: var(--white);
+    }
+    .btn-primary:hover {
+      background: var(--teal-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(13,115,119,.3);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--ink-mid);
+    }
+    .btn-outline:hover {
+      border-color: var(--teal); color: var(--teal);
+      transform: translateY(-2px);
+    }
+    .hero-socials {
+      display: flex; gap: 16px; margin-top: 32px;
+      animation: fadeUp .8s .6s ease both;
+    }
+    .hero-socials a {
+      width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 10px; border: 1.5px solid var(--border);
+      color: var(--ink-mid); font-size: 1rem;
+      text-decoration: none; transition: all .25s;
+    }
+    .hero-socials a:hover {
+      border-color: var(--teal); color: var(--teal);
+      background: var(--teal-pale);
+    }
+    /* Hero visual panel */
+    .hero-visual {
+      animation: fadeUp .8s .2s ease both;
+    }
+    .hero-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: var(--shadow-lg);
+    }
+    .hero-card-title {
+      font-size: .72rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--ink-light); margin-bottom: 20px;
+    }
+    .stat-row {
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .stat-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px;
+      background: var(--cream); border-radius: 10px;
+    }
+    .stat-icon {
+      width: 40px; height: 40px;
+      background: var(--teal-pale); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--teal); font-size: 1rem; flex-shrink: 0;
+    }
+    .stat-label { font-size: .8rem; color: var(--ink-light); margin-bottom: 2px; }
+    .stat-value { font-size: .95rem; font-weight: 600; color: var(--ink); }
+    .skills-chips {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;
+    }
+    .chip {
+      font-size: .78rem; font-weight: 500;
+      padding: 5px 12px; border-radius: 100px;
+      background: var(--teal-pale); color: var(--teal);
+    }
+    @media(max-width:900px){
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+    }
 
-    <link rel="stylesheet" href="style.css">
+    /* ── About ── */
+    #about { background: var(--cream); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: start;
+    }
+    .about-text p {
+      font-size: 1.05rem; line-height: 1.75;
+      color: var(--ink-mid); margin-bottom: 18px;
+    }
+    .about-highlights {
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .highlight-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 18px; background: var(--white);
+      border-radius: 12px; border: 1px solid var(--border);
+      transition: box-shadow .25s, transform .25s;
+    }
+    .highlight-item:hover {
+      box-shadow: var(--shadow); transform: translateY(-3px);
+    }
+    .hi-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: var(--teal-pale); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--teal); font-size: 1.1rem;
+    }
+    .hi-label { font-size: .78rem; color: var(--ink-light); margin-bottom: 3px; }
+    .hi-value { font-size: .95rem; font-weight: 600; color: var(--ink); }
+    @media(max-width:768px){ .about-grid { grid-template-columns: 1fr; } }
+
+    /* ── Skills ── */
+    #skills { background: var(--white); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .skill-card {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .skill-card:hover {
+      box-shadow: var(--shadow-lg); transform: translateY(-4px);
+    }
+    .skill-card-icon {
+      width: 48px; height: 48px;
+      background: var(--teal-pale); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--teal); font-size: 1.3rem; margin-bottom: 16px;
+    }
+    .skill-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem; margin-bottom: 16px; color: var(--ink);
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tag {
+      font-size: .8rem; font-weight: 500;
+      padding: 5px 12px; border-radius: 100px;
+      background: var(--white); border: 1px solid var(--border);
+      color: var(--ink-mid); transition: all .2s;
+    }
+    .skill-tag:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-pale); }
+
+    /* ── Experience ── */
+    #experience { background: var(--cream); }
+    .exp-timeline { display: flex; flex-direction: column; gap: 24px; }
+    .exp-item { display: block; }
+    .exp-left { display: none; }
+    .exp-right {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .exp-right:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+    .exp-meta {
+      display: flex; align-items: center; gap: 10px;
+      flex-wrap: wrap; margin-bottom: 12px;
+    }
+    .exp-dates {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: .78rem; font-weight: 600;
+      color: var(--teal); letter-spacing: .04em;
+      background: var(--teal-pale); padding: 4px 12px;
+      border-radius: 100px;
+    }
+    .exp-location {
+      font-size: .78rem; color: var(--ink-light);
+    }
+    .exp-role {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem; color: var(--ink); margin-bottom: 2px;
+    }
+    .exp-co-name {
+      font-size: .9rem; font-weight: 600;
+      color: var(--teal); margin-bottom: 16px;
+    }
+    .exp-bullets { list-style: none; padding: 0; }
+    .exp-bullets li {
+      font-size: .95rem; line-height: 1.65;
+      color: var(--ink-mid); padding-left: 20px;
+      position: relative; margin-bottom: 9px;
+    }
+    .exp-bullets li::before {
+      content: '▸'; position: absolute; left: 0;
+      color: var(--teal); font-size: .85rem; top: 2px;
+    }
+
+    /* ── Projects ── */
+    #projects { background: var(--white); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    @media(max-width:720px){
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card[style*="span 2"] { grid-column: 1 !important; }
+    }
+    .project-card {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px;
+      display: flex; flex-direction: column;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .project-card:hover {
+      box-shadow: var(--shadow-lg); transform: translateY(-4px);
+    }
+    .project-header {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 12px; margin-bottom: 14px;
+    }
+    .project-icon-wrap {
+      width: 48px; height: 48px; flex-shrink: 0;
+      background: var(--teal-pale); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--teal); font-size: 1.2rem;
+    }
+    .project-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .project-tool {
+      font-size: .73rem; font-weight: 600;
+      padding: 3px 10px; border-radius: 100px;
+      background: var(--white); border: 1px solid var(--border);
+      color: var(--ink-mid);
+    }
+    .project-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem; color: var(--ink); margin-bottom: 10px;
+    }
+    .project-card p {
+      font-size: .93rem; line-height: 1.65;
+      color: var(--ink-mid); flex: 1; margin-bottom: 18px;
+    }
+    .btn-project {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 14px; padding: 9px 18px;
+      background: var(--teal); color: white;
+      border-radius: 8px; font-size: .82rem; font-weight: 600;
+      text-decoration: none; transition: all .25s; border: none; cursor: pointer;
+    }
+    .btn-project:hover { background: var(--teal-light); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(13,115,119,.3); }
+    .btn-project-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 14px; margin-left: 10px; padding: 9px 18px;
+      background: transparent; color: var(--teal);
+      border: 1.5px solid var(--teal);
+      border-radius: 8px; font-size: .82rem; font-weight: 600;
+      text-decoration: none; transition: all .25s;
+    }
+    .btn-project-outline:hover { background: var(--teal-pale); transform: translateY(-2px); }
+    .project-highlight {
+      font-size: .85rem; font-weight: 600;
+      color: var(--teal); padding: 10px 14px;
+      background: var(--teal-pale); border-radius: 8px;
+      margin-bottom: 18px;
+    }
+
+    /* ── Education ── */
+    #education { background: var(--cream); }
+    .edu-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .edu-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .edu-card:hover {
+      box-shadow: var(--shadow); transform: translateY(-3px);
+    }
+    .edu-degree {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem; color: var(--ink); margin-bottom: 6px;
+    }
+    .edu-school { font-size: .95rem; font-weight: 600; color: var(--teal); margin-bottom: 4px; }
+    .edu-meta { font-size: .85rem; color: var(--ink-light); margin-bottom: 16px; }
+    .edu-gpa {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--teal-pale); color: var(--teal);
+      font-size: .8rem; font-weight: 700; letter-spacing: .04em;
+      padding: 4px 12px; border-radius: 100px;
+    }
+
+    /* Certifications row */
+    .cert-row {
+      display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px;
+    }
+    .cert-badge {
+      display: flex; align-items: center; gap: 9px;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 16px;
+      font-size: .85rem; font-weight: 500; color: var(--ink-mid);
+      transition: all .2s;
+    }
+    .cert-badge i { color: var(--teal); }
+    .cert-badge:hover { border-color: var(--teal); color: var(--teal); }
+    a.cert-badge { cursor: pointer; }
+
+    /* ── Contact ── */
+    #contact { background: var(--white); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 32px;
+      align-items: start;
+    }
+    .contact-form-card, .contact-info-card {
+      background: var(--cream); border: 1px solid var(--border);
+      border-radius: 14px; padding: 32px;
+    }
+    .contact-card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem; margin-bottom: 24px; color: var(--ink);
+    }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+    .form-group label {
+      font-size: .82rem; font-weight: 600;
+      color: var(--ink-mid); letter-spacing: .04em;
+    }
+    .form-group input, .form-group textarea {
+      background: var(--white); border: 1.5px solid var(--border);
+      color: var(--ink); padding: 12px 14px;
+      border-radius: 8px; font-size: .95rem;
+      font-family: 'DM Sans', sans-serif;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      outline: none; border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(13,115,119,.12);
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .contact-links { display: flex; flex-direction: column; gap: 14px; }
+    .contact-link {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px; background: var(--white);
+      border: 1px solid var(--border); border-radius: 10px;
+      text-decoration: none; color: var(--ink-mid);
+      font-size: .9rem; font-weight: 500;
+      transition: all .25s;
+    }
+    .contact-link i {
+      width: 36px; height: 36px;
+      background: var(--teal-pale); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--teal); font-size: 1rem; flex-shrink: 0;
+    }
+    .contact-link:hover {
+      border-color: var(--teal); color: var(--teal);
+      transform: translateX(4px);
+    }
+    .availability-badge {
+      margin-top: 18px; padding: 12px 16px;
+      background: var(--teal-pale); border-radius: 10px;
+      font-size: .85rem; color: var(--teal); font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .availability-badge::before {
+      content: ''; width: 8px; height: 8px;
+      background: var(--teal); border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @media(max-width:768px){ .contact-grid { grid-template-columns: 1fr; } }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--ink); color: rgba(255,255,255,.5);
+      text-align: center; padding: 28px 5%;
+      font-size: .85rem;
+    }
+    footer span { color: var(--teal); }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { opacity: 1; transform: translateY(0); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.hidden { opacity: 0; transform: translateY(30px); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .proj-bullets li::before {
+      content: "▸";
+      color: var(--teal);
+      font-size: .85rem;
+      margin-right: 7px;
+    }
+    .proj-bullets { list-style: none; padding: 0; margin: 0 0 14px 0; }
+    .proj-bullets li {
+      font-size: .93rem; line-height: 1.65;
+      color: var(--ink-mid); margin-bottom: 7px;
+      padding-left: 16px; position: relative;
+    }
+    .proj-bullets li::before {
+      content: "▸"; position: absolute; left: 0;
+      color: var(--teal); font-size: .85rem; top: 2px;
+    }
+
+  /* ── Content Protection ── */
+  body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    pointer-events: none;
+  }
+
+  </style>
 </head>
-
 <body>
 
-<!-- ================= NAVIGATION ================= -->
+<div id="progress"></div>
 
+<!-- Nav -->
 <nav>
-    <div class="container nav">
-
-        <a href="#top" class="logo">
-            MAHEK <span>MANANI</span>
-        </a>
-
-        <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#experience">Experience</a>
-            <a href="#projects">Projects</a>
-            <a href="#skills">Skills</a>
-            <a href="#contact">Contact</a>
-        </div>
-
-    </div>
+  <div class="nav-inner">
+    <a href="#home" class="logo">Mahek <span>Manani</span></a>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#volunteering">Volunteering</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="Mahek_Manani_Resume.pdf" download style="background:var(--teal);color:white;padding:7px 16px;border-radius:6px;font-weight:600;font-size:.85rem;text-decoration:none;display:inline-flex;align-items:center;gap:6px;"><i class="fas fa-download" style="font-size:.8rem;"></i> Resume</a></li>
+    </ul>
+  </div>
 </nav>
 
-
-<main id="top">
-
-<!-- ================= HERO ================= -->
-
-<section class="hero">
-
-    <div class="container hero-grid">
-
-        <div class="hero-content">
-
-            <div class="eyebrow">
-                DATA • BUSINESS • SUPPLY CHAIN ANALYTICS
-            </div>
-
-            <h1>
-                Turning complex data into
-                <em>decisions</em>
-                that move the business.
-            </h1>
-
-            <p class="hero-description">
-                I'm Mahek Manani, an analytics professional who combines
-                SQL, Python, Power BI, Tableau and business thinking to
-                solve operational and supply-chain problems.
-            </p>
-
-            <div class="hero-buttons">
-
-                <a href="#projects" class="button button-primary">
-                    Explore case studies ↓
-                </a>
-
-                <a href="Mahek_Manani_Resume.pdf"
-                   target="_blank"
-                   class="button">
-                    View resume ↗
-                </a>
-
-            </div>
-
-            <div class="hero-socials">
-
-                <a href="https://www.linkedin.com/in/mahek-manani/"
-                   target="_blank">
-                    LinkedIn ↗
-                </a>
-
-                <a href="https://github.com/Maheksmanani"
-                   target="_blank">
-                    GitHub ↗
-                </a>
-
-                <a href="mailto:maheksmanani@gmail.com">
-                    Email ↗
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <div class="profile-card">
-
-            <img src="headshot.png"
-                 alt="Mahek Manani">
-
-            <div class="profile-caption">
-
-                <strong>Mahek Manani</strong>
-
-                <span>
-                    Chicago, IL · Open to relocate
-                </span>
-
-            </div>
-
-        </div>
-
+<!-- Hero -->
+<section id="home">
+  <div class="container hero-grid">
+    <div class="hero-text">
+      <div class="hero-tag">Open to Data &amp; Business Analytics Opportunities</div>
+      <img src="headshot.png" alt="Mahek Manani" style="width:120px;height:120px;border-radius:50%;object-fit:cover;object-position:top;border:3px solid var(--teal);box-shadow:0 0 0 5px var(--teal-pale);margin-bottom:20px;display:block;animation:fadeUp .8s ease both;">
+      <h1 class="hero-name">Mahek<br><em>Manani</em></h1>
+      <p class="hero-sub">
+        Data Analyst, Business Analyst &amp; Supply Chain Analytics professional who turns complex, messy data into clear insights that drive measurable business decisions — through SQL, Python, Power BI, Tableau, and a sharp eye for what the numbers actually mean.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary"><i class="fas fa-chart-bar"></i> View My Work</a>
+        <a href="mailto:maheksmanani@gmail.com" class="btn btn-outline"><i class="fas fa-paper-plane"></i> Get in Touch</a>
+      </div>
+      <div class="hero-socials">
+        <a href="https://www.linkedin.com/in/mahek-manani/" target="_blank" rel="noopener" aria-label="LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+        <a href="mailto:maheksmanani@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        <a href="tel:+17736900311" aria-label="Phone"><i class="fas fa-phone"></i></a>
+      </div>
     </div>
 
-</section>
-
-
-<!-- ================= IMPACT ================= -->
-
-<section class="impact">
-
-    <div class="container impact-grid">
-
-        <div class="metric">
-            <strong>40%</strong>
-            <span>Cost reduction opportunity identified</span>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-card-title">Quick Profile</div>
+        <div class="stat-row">
+          <div class="stat-item">
+            <div class="stat-icon"><i class="fas fa-graduation-cap"></i></div>
+            <div>
+              <div class="stat-label">Degree</div>
+              <div class="stat-value">MS Business Analytics<br><span style="font-size:.82rem;color:var(--ink-light);font-weight:400;">DePaul University, Chicago</span></div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon"><i class="fas fa-star"></i></div>
+            <div>
+              <div class="stat-label">GPA</div>
+              <div class="stat-value">3.875 / 4.0</div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <div class="stat-label">Location</div>
+              <div class="stat-value">Chicago, IL · Open to relocate</div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon"><i class="fas fa-industry"></i></div>
+            <div>
+              <div class="stat-label">Domain Focus</div>
+              <div class="stat-value">Data Analytics · Business Intelligence</div>
+            </div>
+          </div>
         </div>
-
-        <div class="metric">
-            <strong>97.4%</strong>
-            <span>Forecast accuracy</span>
+        <div class="skills-chips">
+          <span class="chip">SQL</span>
+          <span class="chip">Power BI</span>
+          <span class="chip">Python</span>
+          <span class="chip">Tableau</span>
+          <span class="chip">R</span>
+          <span class="chip">DAX</span>
         </div>
-
-        <div class="metric">
-            <strong>34%</strong>
-            <span>Incident-rate reduction</span>
-        </div>
-
-        <div class="metric">
-            <strong>91.4%</strong>
-            <span>Predictive classification accuracy</span>
-        </div>
-
+      </div>
     </div>
-
+  </div>
 </section>
 
-
-<!-- ================= ABOUT ================= -->
-
-<section id="about" class="section">
-
-    <div class="container">
-
-        <div class="section-heading">
-
-            <div class="section-number">
-                01 / ABOUT
-            </div>
-
-            <div>
-
-                <h2>
-                    Analytics with a business lens.
-                </h2>
-
-                <p>
-                    My work sits at the intersection of data,
-                    operations and decision-making. I enjoy taking
-                    messy datasets, finding the story inside them,
-                    and turning that story into dashboards, models
-                    and actions stakeholders can actually use.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="about-grid">
-
-            <div class="info-card">
-
-                <h3>What I bring</h3>
-
-                <p>
-                    3+ years across IT consulting, digitalized
-                    manufacturing and supply chain analytics.
-                    My strongest work combines rigorous analysis
-                    with clear communication and measurable
-                    operational outcomes.
-                </p>
-
-                <div class="about-stat">
-
-                    <strong>3+</strong>
-
-                    <span>
-                        Years of analytics experience
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="info-card" id="skills">
-
-                <h3>Core toolkit</h3>
-
-                <div class="tags">
-
-                    <span>SQL</span>
-                    <span>Python</span>
-                    <span>R</span>
-                    <span>Power BI</span>
-                    <span>DAX</span>
-                    <span>Tableau</span>
-                    <span>Excel</span>
-                    <span>ETL</span>
-                    <span>Forecasting</span>
-                    <span>Predictive Analytics</span>
-                    <span>Supply Chain Analytics</span>
-                    <span>Inventory Optimization</span>
-                    <span>Procurement Analytics</span>
-                    <span>KPI Design</span>
-                    <span>Data Modeling</span>
-                    <span>Root Cause Analysis</span>
-
-                </div>
-
-            </div>
-
-        </div>
-
+<!-- About -->
+<section id="about">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">About Me</span>
+      <h2 class="section-title">Data-driven by curiosity,<br>grounded in operations.</h2>
+      <div class="section-divider"></div>
     </div>
-
-</section>
-
-
-<!-- ================= EXPERIENCE ================= -->
-
-<section id="experience" class="section section-alt">
-
-    <div class="container">
-
-        <div class="section-heading">
-
-            <div class="section-number">
-                02 / EXPERIENCE
-            </div>
-
-            <div>
-
-                <h2>
-                    From raw data to operational impact.
-                </h2>
-
-            </div>
-
-        </div>
-
-
-        <div class="timeline">
-
-
-            <!-- TECHNETICS -->
-
-            <article class="job">
-
-                <div class="job-date">
-                    MAR 2023 — NOV 2024
-                </div>
-
-                <div class="job-content">
-
-                    <h3>Associate Analyst</h3>
-
-                    <div class="company">
-                        Technetics IT Services
-                    </div>
-
-                    <ul>
-
-                        <li>
-                            Delivered end-to-end data and business analysis
-                            across 4–5 client engagements, translating
-                            requirements into actionable reporting and
-                            insights.
-                        </li>
-
-                        <li>
-                            Built weekly/monthly MIS and ad-hoc analysis
-                            using SQL and Python, improving visibility into
-                            operational performance.
-                        </li>
-
-                        <li>
-                            Developed 3–5 client-facing Power BI dashboards
-                            across logistics, FMCG and FinTech engagements.
-                        </li>
-
-                        <li>
-                            Automated data preparation with Python using
-                            Pandas and NumPy for repeatable ETL workflows.
-                        </li>
-
-                        <li>
-                            Applied segmentation and demand forecasting
-                            using Scikit-learn and regression techniques.
-                        </li>
-
-                    </ul>
-
-                </div>
-
-            </article>
-
-
-            <!-- SIEMENS -->
-
-            <article class="job">
-
-                <div class="job-date">
-                    JUL 2022 — DEC 2022
-                </div>
-
-                <div class="job-content">
-
-                    <h3>
-                        Procurement & Supply Chain Intern
-                    </h3>
-
-                    <div class="company">
-                        Siemens Ltd.
-                    </div>
-
-                    <ul>
-
-                        <li>
-                            Analyzed 3+ years of procurement data and
-                            50+ supplier contracts supporting SIRIUS
-                            switchgear production.
-                        </li>
-
-                        <li>
-                            Identified opportunities contributing to a
-                            <strong>40% cost reduction</strong> through
-                            spend and supplier analysis.
-                        </li>
-
-                        <li>
-                            Built 5 automated Power BI dashboards with
-                            DAX, eliminating 8+ hours/week of manual
-                            reporting.
-                        </li>
-
-                        <li>
-                            Analyzed 200+ delivery failures using DMAIC
-                            and isolated 3 systemic supplier issues.
-                        </li>
-
-                        <li>
-                            Contributed to a
-                            <strong>12% improvement in on-time delivery</strong>
-                            within 60 days.
-                        </li>
-
-                        <li>
-                            Built regression forecasts that improved
-                            planning accuracy by 15% and supported a
-                            10% reduction in excess inventory.
-                        </li>
-
-                    </ul>
-
-                </div>
-
-            </article>
-
-
-            <!-- VJTI -->
-
-            <article class="job">
-
-                <div class="job-date">
-                    JUN 2021 — FEB 2022
-                </div>
-
-                <div class="job-content">
-
-                    <h3>
-                        Student Assistant — Supply Chain & Operations
-                    </h3>
-
-                    <div class="company">
-                        Veermata Jijabai Technological Institute
-                    </div>
-
-                    <ul>
-
-                        <li>
-                            Analyzed 12 months of warehouse throughput
-                            across 4 zones and traced a 23% throughput
-                            loss to 2 operational bottlenecks.
-                        </li>
-
-                        <li>
-                            Standardized 15+ workflows and created
-                            7 performance reports adopted by operations
-                            managers.
-                        </li>
-
-                    </ul>
-
-                </div>
-
-            </article>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= PROJECTS ================= -->
-
-<section id="projects" class="section">
-
-    <div class="container">
-
-        <div class="section-heading">
-
-            <div class="section-number">
-                03 / SELECTED WORK
-            </div>
-
-            <div>
-
-                <h2>
-                    Case studies built around real decisions.
-                </h2>
-
-                <p>
-                    A focused portfolio of analytics projects
-                    spanning fleet safety, demand planning and
-                    procurement optimization.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="projects-grid">
-
-
-            <!-- PROJECT 1 -->
-
-            <article class="project-card">
-
-                <div class="project-number">
-                    01 / FLEET RISK
-                </div>
-
-                <h3>
-                    Fleet & Operational Risk Analytics
-                </h3>
-
-                <p>
-                    Used multi-source telematics data to segment
-                    drivers, identify concentrated risk and design
-                    targeted interventions.
-                </p>
-
-                <div class="project-highlight">
-
-                    <strong>21%</strong>
-
-                    <span>
-                        of drivers generated 58.8% of total
-                        incident risk
-                    </span>
-
-                </div>
-
-                <p>
-                    Targeted interventions reduced incidents by
-                    <strong>34%</strong>.
-                </p>
-
-                <div class="tech-stack">
-                    R · Python · Power BI · Tableau · Random Forest
-                </div>
-
-                <a href="https://github.com/Maheksmanani"
-                   target="_blank"
-                   class="project-link">
-                    View on GitHub ↗
-                </a>
-
-            </article>
-
-
-            <!-- PROJECT 2 -->
-
-            <article class="project-card">
-
-                <div class="project-number">
-                    02 / DEMAND PLANNING
-                </div>
-
-                <h3>
-                    Demand Forecasting & Inventory Optimization
-                </h3>
-
-                <p>
-                    Evaluated 24 months of demand across 80+ SKUs
-                    and iterated across three regression models.
-                </p>
-
-                <div class="project-highlight">
-
-                    <strong>97.4%</strong>
-
-                    <span>
-                        forecast accuracy
-                    </span>
-
-                </div>
-
-                <p>
-                    Combined forecasting with EOQ, safety stock
-                    and reorder-point logic to support inventory
-                    decisions.
-                </p>
-
-                <div class="tech-stack">
-                    Python · Scikit-learn · Forecasting · EOQ · Power BI
-                </div>
-
-                <a href="https://github.com/Maheksmanani"
-                   target="_blank"
-                   class="project-link">
-                    View on GitHub ↗
-                </a>
-
-            </article>
-
-
-            <!-- PROJECT 3 -->
-
-            <article class="project-card">
-
-                <div class="project-number">
-                    03 / PROCUREMENT
-                </div>
-
-                <h3>
-                    Procurement Cost Optimization
-                </h3>
-
-                <p>
-                    Analyzed $4.7M+ in transactions across 30
-                    vendors using advanced SQL.
-                </p>
-
-                <div class="project-highlight">
-
-                    <strong>12%</strong>
-
-                    <span>
-                        cost-reduction opportunity
-                    </span>
-
-                </div>
-
-                <p>
-                    Built a spend-analysis framework and surfaced
-                    opportunities across four underperforming
-                    contracts.
-                </p>
-
-                <div class="tech-stack">
-                    SQL · CTEs · Window Functions · Data Analysis
-                </div>
-
-                <a href="https://github.com/Maheksmanani"
-                   target="_blank"
-                   class="project-link">
-                    View on GitHub ↗
-                </a>
-
-            </article>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= ANALYTICS APPROACH ================= -->
-
-<section class="section section-dark">
-
-    <div class="container">
-
-        <div class="section-heading">
-
-            <div class="section-number">
-                HOW I WORK
-            </div>
-
-            <div>
-
-                <h2>
-                    Descriptive → Predictive → Prescriptive
-                </h2>
-
-                <p>
-                    I don't stop at explaining what happened.
-                    The goal is to understand why it happened,
-                    predict what comes next, and recommend what
-                    the business should do about it.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="approach-grid">
-
-            <div>
-                <span>01</span>
-                <h3>Understand</h3>
-                <p>
-                    Clean, validate and explore the data to
-                    understand patterns, trends and anomalies.
-                </p>
-            </div>
-
-            <div>
-                <span>02</span>
-                <h3>Predict</h3>
-                <p>
-                    Use statistical and machine-learning models
-                    to forecast outcomes and segment risk.
-                </p>
-            </div>
-
-            <div>
-                <span>03</span>
-                <h3>Act</h3>
-                <p>
-                    Translate analysis into dashboards,
-                    recommendations and measurable actions.
-                </p>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= EDUCATION ================= -->
-
-<section class="section">
-
-    <div class="container">
-
-        <div class="section-heading">
-
-            <div class="section-number">
-                04 / EDUCATION
-            </div>
-
-            <div>
-
-                <h2>
-                    Technical foundation +
-                    business perspective.
-                </h2>
-
-            </div>
-
-        </div>
-
-
-        <div class="education-grid">
-
-
-            <div class="education-card">
-
-                <span class="education-year">
-                    2026
-                </span>
-
-                <h3>
-                    MS in Business Analytics
-                </h3>
-
-                <p>
-                    DePaul University
-                </p>
-
-                <p>
-                    Kellstadt Graduate School of Business
-                </p>
-
-                <div class="education-detail">
-                    GPA: 3.875 / 4.0
-                </div>
-
-                <div class="education-detail">
-                    STEM-designated
-                </div>
-
-            </div>
-
-
-            <div class="education-card">
-
-                <span class="education-year">
-                    2024
-                </span>
-
-                <h3>
-                    Advanced Certificate in
-                    Business & Data Analytics
-                </h3>
-
-                <p>
-                    IIM Udaipur
-                </p>
-
-                <div class="education-detail">
-                    Business Analytics
-                </div>
-
-            </div>
-
-
-            <div class="education-card">
-
-                <span class="education-year">
-                    2024
-                </span>
-
-                <h3>
-                    B.Tech in Production Engineering
-                </h3>
-
-                <p>
-                    Veermata Jijabai Technological Institute
-                    (VJTI), Mumbai
-                </p>
-
-                <div class="education-detail">
-                    Production & Operations
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= CONTACT ================= -->
-
-<section id="contact" class="contact">
-
-    <div class="container">
-
-        <div class="contact-label">
-            05 / LET'S CONNECT
-        </div>
-
-        <h2>
-            Have a data problem
-            worth solving?
-        </h2>
-
+    <div class="about-grid reveal">
+      <div class="about-text">
         <p>
-            I'm open to Data Analyst, Business Analyst and
-            Supply Chain Analyst opportunities. If you're
-            looking for someone who can bridge analytics and
-            operations, I'd love to connect.
+          I'm a data analyst and business analytics professional with 3+ years of experience across IT consulting, digitalized manufacturing, and supply chain analytics. I enjoy the full journey — from raw, messy data to a clean dashboard or predictive model that actually drives decisions and moves teams forward.
         </p>
-
-
-        <div class="contact-buttons">
-
-            <a href="mailto:maheksmanani@gmail.com"
-               class="button contact-primary">
-                Email me ↗
-            </a>
-
-            <a href="Mahek_Manani_Resume.pdf"
-               target="_blank"
-               class="button contact-secondary">
-                Resume ↗
-            </a>
-
+        <p>
+          My work has delivered measurable outcomes including 40% cost-reduction opportunities, 97.4% forecast accuracy, and 34% incident-rate reduction. I believe great analytics isn't just about the tools — it's about asking the right questions first and connecting findings to business action.
+        </p>
+        <p>
+          I'm comfortable across the full analytics stack: SQL for extraction and transformation, Python and R for modeling and prediction, and Power BI or Tableau to translate findings into visuals that resonate with both technical and business audiences.
+        </p>
+      </div>
+      <div class="about-highlights">
+        <div class="highlight-item">
+          <div class="hi-icon"><i class="fas fa-chart-line"></i></div>
+          <div>
+            <div class="hi-label">Cost Impact</div>
+            <div class="hi-value">40% cost reduction at Siemens via spend analysis</div>
+          </div>
         </div>
-
-
-        <div class="contact-links">
-
-            <a href="https://www.linkedin.com/in/mahek-manani/"
-               target="_blank">
-                LinkedIn ↗
-            </a>
-
-            <a href="https://github.com/Maheksmanani"
-               target="_blank">
-                GitHub ↗
-            </a>
-
-            <a href="mailto:maheksmanani@gmail.com">
-                maheksmanani@gmail.com
-            </a>
-
+        <div class="highlight-item">
+          <div class="hi-icon"><i class="fas fa-truck"></i></div>
+          <div>
+            <div class="hi-label">Delivery Reliability</div>
+            <div class="hi-value">+12% on-time delivery through cross-functional process improvements</div>
+          </div>
         </div>
-
+        <div class="highlight-item">
+          <div class="hi-icon"><i class="fas fa-boxes"></i></div>
+          <div>
+            <div class="hi-label">Inventory Efficiency</div>
+            <div class="hi-value">10% excess inventory reduction via forecasting models</div>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="hi-icon"><i class="fas fa-search-dollar"></i></div>
+          <div>
+            <div class="hi-label">Procurement Insight</div>
+            <div class="hi-value">12% cost-saving opportunity identified through SQL supplier performance analysis</div>
+          </div>
+        </div>
+      </div>
     </div>
 
+    <!-- Passion Statement -->
+    <div style="margin-top:40px;background:linear-gradient(135deg,var(--teal) 0%,var(--teal-light) 100%);border-radius:14px;padding:28px 36px;display:flex;align-items:center;gap:20px;">
+      <div style="font-size:2rem;flex-shrink:0;">📊</div>
+      <div>
+        <p style="font-size:1.05rem;font-weight:600;color:white;margin-bottom:4px;line-height:1.5;">
+          "I don't just work with data — I chase the story behind the numbers."
+        </p>
+        <p style="font-size:.88rem;color:rgba(255,255,255,0.8);margin:0;line-height:1.5;">
+          Every dataset is a puzzle. I'm driven by the moment messy, siloed data becomes a clear recommendation that a business actually acts on — whether that's cutting costs, improving delivery times, or preventing operational risk before it happens.
+        </p>
+      </div>
+    </div>
+
+  </div>
 </section>
 
-</main>
+<!-- Skills -->
+<section id="skills">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Technical Skills</span>
+      <h2 class="section-title">Tools &amp; Technologies</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <div class="skill-card-icon"><i class="fas fa-chart-pie"></i></div>
+        <h3>Business Intelligence</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Power BI</span>
+          <span class="skill-tag">DAX</span>
+          <span class="skill-tag">Data Modeling</span>
+          <span class="skill-tag">Dashboard Development</span>
+          <span class="skill-tag">Tableau</span>
+          <span class="skill-tag">Forecasting</span>
+          <span class="skill-tag">Anomaly Detection</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon"><i class="fas fa-code"></i></div>
+        <h3>Programming &amp; Data</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Pandas</span>
+          <span class="skill-tag">NumPy</span>
+          <span class="skill-tag">R</span>
+          <span class="skill-tag">Jupyter Notebook</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon"><i class="fas fa-database"></i></div>
+        <h3>Data Management</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Data Cleaning</span>
+          <span class="skill-tag">Data Transformation</span>
+          <span class="skill-tag">ETL</span>
+          <span class="skill-tag">Data Validation</span>
+          <span class="skill-tag">Excel (PivotTables, XLOOKUP, Solver)</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon"><i class="fas fa-brain"></i></div>
+        <h3>Analytics Methods</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Statistical Analysis</span>
+          <span class="skill-tag">Forecasting Models</span>
+          <span class="skill-tag">Root Cause Analysis</span>
+          <span class="skill-tag">Risk Segmentation</span>
+          <span class="skill-tag">Regression Modeling</span>
+          <span class="skill-tag">EOQ Optimization</span>
+          <span class="skill-tag">Safety Stock</span>
+          <span class="skill-tag">Time-Series Analysis</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon"><i class="fas fa-cogs"></i></div>
+        <h3>Operations &amp; Systems</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">SAP (Basic)</span>
+          <span class="skill-tag">Supply Chain Analytics</span>
+          <span class="skill-tag">Warehouse Management</span>
+          <span class="skill-tag">Procurement Analysis</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon"><i class="fas fa-users"></i></div>
+        <h3>Business &amp; Stakeholder</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Requirements Gathering</span>
+          <span class="skill-tag">Stakeholder Communication</span>
+          <span class="skill-tag">Cross-Functional Collaboration</span>
+          <span class="skill-tag">Root Cause Analysis</span>
+          <span class="skill-tag">KPI Development</span>
+          <span class="skill-tag">Project Coordination</span>
+          <span class="skill-tag">Agile / Scrum</span>
+          <span class="skill-tag">JIRA</span>
+        </div>
+      </div>
 
+      <div class="skill-card">
+        <div class="skill-card-icon"><i class="fas fa-robot"></i></div>
+        <h3>AI &amp; Productivity Tools</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">ChatGPT</span>
+          <span class="skill-tag">Claude</span>
+          <span class="skill-tag">Microsoft Copilot</span>
+          <span class="skill-tag">Power BI AI Features</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- ================= FOOTER ================= -->
+<!-- Experience -->
+<section id="experience">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Experience</span>
+      <h2 class="section-title">Professional Journey</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="exp-timeline reveal">
 
-<footer>
+      <!-- Technetics -->
+      <div class="exp-item">
+        <div class="exp-right">
+          <div class="exp-meta">
+            <span class="exp-dates">📅 Mar 2023 – Nov 2024</span>
+            <span class="exp-location">📍 Mumbai, India</span>
+          </div>
+          <div class="exp-role">Associate Analyst</div>
+          <div class="exp-co-name">Technetics IT Services</div>
+          <ul class="exp-bullets">
+            <li>Delivered end-to-end data and business analysis across <strong>4–5 client engagements</strong>, translating business requirements into actionable reporting and insights.</li>
+            <li>Built weekly/monthly MIS and ad-hoc analysis using <strong>SQL and Python</strong>, improving visibility into operational performance and recurring business trends.</li>
+            <li>Developed <strong>3–5 client-facing Power BI dashboards</strong> across logistics, FMCG, and FinTech engagements, translating KPIs into decision-ready visualizations.</li>
+            <li>Automated data preparation and repeatable ETL workflows using <strong>Pandas and NumPy</strong>, improving consistency and reducing manual data preparation.</li>
+            <li>Applied segmentation and demand forecasting using <strong>Scikit-learn and regression techniques</strong> to support business planning and performance analysis.</li>
+          </ul>
+        </div>
+      </div>
 
-    <div class="container footer">
+      <!-- Siemens -->
+      <div class="exp-item">
+        <div class="exp-right">
+          <div class="exp-meta">
+            <span class="exp-dates">&#x1F4C5; Jul 2022 – Dec 2022</span>
+            <span class="exp-location">&#x1F4CD; Mumbai, India</span>
+          </div>
+          <div class="exp-role">Procurement &amp; Supply Chain Intern</div>
+          <div class="exp-co-name"><a href="https://www.siemens.com/in/en.html" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Siemens Ltd. <i class="fas fa-external-link-alt" style="font-size:.65rem;"></i></a></div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
+            <div style="background:var(--teal-pale);border-radius:8px;padding:10px 16px;text-align:center;min-width:90px;">
+              <div style="font-size:1.4rem;font-weight:700;color:var(--teal);">40%</div>
+              <div style="font-size:.72rem;color:var(--ink-light);margin-top:2px;">Cost Reduction</div>
+            </div>
+            <div style="background:var(--teal-pale);border-radius:8px;padding:10px 16px;text-align:center;min-width:90px;">
+              <div style="font-size:1.4rem;font-weight:700;color:var(--teal);">+12%</div>
+              <div style="font-size:.72rem;color:var(--ink-light);margin-top:2px;">On-Time Delivery</div>
+            </div>
+            <div style="background:var(--teal-pale);border-radius:8px;padding:10px 16px;text-align:center;min-width:90px;">
+              <div style="font-size:1.4rem;font-weight:700;color:var(--teal);">10%</div>
+              <div style="font-size:.72rem;color:var(--ink-light);margin-top:2px;">Inventory Reduced</div>
+            </div>
+            <div style="background:var(--teal-pale);border-radius:8px;padding:10px 16px;text-align:center;min-width:90px;">
+              <div style="font-size:1.4rem;font-weight:700;color:var(--teal);">5+</div>
+              <div style="font-size:.72rem;color:var(--ink-light);margin-top:2px;">KPI Dashboards Built</div>
+            </div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Cleaned, modeled, and analyzed <strong>3+ years</strong> of procurement and supplier performance data using SQL and Excel across <strong>50+ supplier contracts</strong></li>
+            <li>Identified opportunities contributing to a <strong>40% cost reduction</strong> through spend benchmarking, supplier analysis, and contract variance analysis</li>
+            <li>Built <strong>5 automated Power BI dashboards</strong> using advanced DAX measures to track supplier performance, lead time, delivery reliability, and spend variance — eliminating <strong>8+ hours/week</strong> of manual reporting</li>
+            <li>Developed regression-based forecasting models that improved material planning accuracy by <strong>15%</strong> and supported a <strong>10% reduction in excess inventory</strong></li>
+            <li>Performed root cause analysis on <strong>200+ delivery failures</strong>, surfacing 3 systemic issues that, once addressed, improved on-time delivery rate by <strong>12%</strong> within 60 days</li>
+            <li>Partnered with procurement, logistics, and finance stakeholders to implement process improvements and standardize KPI definitions</li>
+          </ul>
+        </div>
+      </div>
 
-        <span>
-            © 2026 Mahek Manani
-        </span>
+      <!-- VJTI -->
+      <div class="exp-item">
+        <div class="exp-right">
+          <div class="exp-meta">
+            <span class="exp-dates">&#x1F4C5; Jun 2021 – Feb 2022</span>
+            <span class="exp-location">&#x1F4CD; Mumbai, India</span>
+          </div>
+          <div class="exp-role">Student Assistant — Supply Chain &amp; Operations</div>
+          <div class="exp-co-name"><a href="https://vjti.ac.in/" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">VJTI, Mumbai <i class="fas fa-external-link-alt" style="font-size:.65rem;"></i></a></div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
+            <div style="background:var(--teal-pale);border-radius:8px;padding:10px 16px;text-align:center;min-width:90px;">
+              <div style="font-size:1.4rem;font-weight:700;color:var(--teal);">9mo</div>
+              <div style="font-size:.72rem;color:var(--ink-light);margin-top:2px;">Engagement</div>
+            </div>
+            <div style="background:var(--teal-pale);border-radius:8px;padding:10px 16px;text-align:center;min-width:90px;">
+              <div style="font-size:1.4rem;font-weight:700;color:var(--teal);">7</div>
+              <div style="font-size:.72rem;color:var(--ink-light);margin-top:2px;">Reports Submitted</div>
+            </div>
+            <div style="background:var(--teal-pale);border-radius:8px;padding:10px 16px;text-align:center;min-width:90px;">
+              <div style="font-size:1.4rem;font-weight:700;color:var(--teal);">★</div>
+              <div style="font-size:.72rem;color:var(--ink-light);margin-top:2px;">Shareholder Acknowledged</div>
+            </div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Analyzed <strong>12 months</strong> of warehouse and logistics data across <strong>4 facility zones</strong> and <strong>3 shift patterns</strong> to map material flow and identify picking bottlenecks</li>
+            <li>Developed and submitted <strong>7 structured performance reports</strong> tracking throughput, dwell time, and flow efficiency — formally adopted by operations managers for weekly planning cycles</li>
+            <li>Work and findings were <strong>presented at shareholder meetings</strong> and formally acknowledged by company shareholders as a meaningful contribution to operational visibility</li>
+            <li>Identified <strong>2 critical bottlenecks</strong> in staging and picking sequences causing ~23% throughput loss, directly informing a workflow redesign that improved daily output</li>
+            <li>Documented and standardized <strong>15+ operational workflows</strong> across supply chain functions, reducing process ambiguity and improving handoff efficiency across teams</li>
+          </ul>
+        </div>
+      </div>
 
-        <span>
-            Data → Insight → Action
-        </span>
 
     </div>
+  </div>
+</section>
 
+<!-- Projects -->
+<section id="projects">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Projects</span>
+      <h2 class="section-title">Selected Work</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="projects-grid reveal">
+
+      <!-- ── 1. Reyes Holdings ── WIDE CARD -->
+      <div class="project-card" style="grid-column:1/-1;">
+        
+        <h3>Operational Risk &amp; Fleet Performance Analytics — <a href="https://reyesholdings.com/" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Reyes Holdings <i class="fas fa-external-link-alt" style="font-size:.7rem;"></i></a></h3>
+        <div class="project-tools">
+          <span class="project-tool">Power BI</span><span class="project-tool">DAX</span><span class="project-tool">R</span>
+          <span class="project-tool">Segmentation</span><span class="project-tool">Predictive Modeling</span><span class="project-tool">EDA</span>
+        </div>
+        <ul class="proj-bullets"><li>Reyes Holdings operates one of the largest beverage distribution fleets in the US — siloed data made it near-impossible to spot risk patterns before incidents occurred</li><li>Integrated <strong>4+ data sources</strong> across fleet, driver, route, and maintenance records into a unified analytics pipeline</li><li>Built Power BI dashboards with DAX tracking <strong>12 live KPIs</strong> including incident rate, fleet utilization, and route efficiency</li><li>Applied R-based RFM-style segmentation to classify drivers into <strong>3 risk tiers</strong>; top 21% of drivers generated <strong>58.8% of total event risk</strong></li><li>Built predictive models achieving <strong>91.4% risk classification accuracy</strong> — shifting operations from reactive reporting to proactive intervention</li><li>Delivered a <strong>34% reduction in incident rate</strong> while tracking fleet, driver, and route performance through executive-facing dashboards</li></ul>
+        <div class="project-highlight">🎯 34% incident-rate reduction · 91.4% model classification accuracy · 12 operational KPIs tracked</div>
+      <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;">
+       </div>
+      </div>
+
+      <!-- ── 2. Demand Forecasting ── -->
+      <div class="project-card">
+        
+        <h3>Demand Forecasting &amp; Inventory Optimization</h3>
+        <div class="project-tools">
+          <span class="project-tool">Python</span><span class="project-tool">Pandas</span><span class="project-tool">NumPy</span>
+          <span class="project-tool">Regression</span><span class="project-tool">EOQ Model</span><span class="project-tool">Jupyter</span>
+        </div>
+        <ul class="proj-bullets"><li>Built and evaluated <strong>3 regression models</strong> (Linear Regression, Random Forest, Gradient Boosting) on <strong>24 months × 80+ SKUs</strong> of historical sales data</li><li>Assessed model performance using <strong>MAE and RMSE</strong>; best model achieved <strong>97.4% forecast accuracy</strong> — a +15% improvement over baseline</li><li>Designed <strong>EOQ (Economic Order Quantity)</strong> and reorder-point logic to convert forecast outputs directly into procurement signals</li><li>Reduced projected <strong>stockouts by 18%</strong> and excess inventory by <strong>20%</strong> across 80+ SKUs through data-driven reorder logic</li></ul>
+        <div class="project-highlight">📦 18% stockout reduction · 97.4% forecast accuracy · 15% improvement over baseline · EOQ logic applied across 80+ SKUs</div>
+      <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;">
+      </div>
+      </div>
+
+      <!-- ── 3. SQL Procurement ── -->
+      <div class="project-card">
+        
+        <h3>Procurement Cost Optimization via SQL Analysis</h3>
+        <div class="project-tools">
+          <span class="project-tool">SQL</span><span class="project-tool">CTEs</span><span class="project-tool">Window Functions</span>
+          <span class="project-tool">Supplier Benchmarking</span><span class="project-tool">Trend Analysis</span>
+        </div>
+        <ul class="proj-bullets"><li>Analyzed <strong>$4.7M+</strong> in supplier transaction data across <strong>30 vendors over 18 months</strong> using complex multi-table SQL</li><li>Wrote queries using <strong>CTEs, window functions, joins, and aggregations</strong> to extract, clean, and analyze large supplier datasets</li><li>Benchmarked supplier pricing against category averages; flagged <strong>4 underperforming vendors</strong> with significant price premiums</li><li>Identified <strong>12% cost-saving opportunities</strong> by quantifying the financial impact of each contract gap and renegotiation target</li></ul>
+        <div class="project-highlight">💰 12% cost-saving identified on $4.7M+ spend · 4 underperforming suppliers flagged · 18 months of data analyzed</div>
+      <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;">
+       </div>
+      </div>
+
+      <!-- ── 4. Siemens KPI Dashboard ── -->
+      <div class="project-card">
+        
+        <h3>KPI Automation &amp; Supply Chain Dashboards — <a href="https://www.siemens.com/in/en.html" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Siemens <i class="fas fa-external-link-alt" style="font-size:.7rem;"></i></a></h3>
+        <div class="project-tools">
+          <span class="project-tool">Power BI</span><span class="project-tool">DAX</span><span class="project-tool">SQL</span>
+          <span class="project-tool">Excel</span><span class="project-tool">Forecasting</span><span class="project-tool">Variance Analysis</span>
+        </div>
+        <ul class="proj-bullets"><li>Replaced <strong>8+ hours/week</strong> of manual Excel reporting with <strong>5 automated Power BI dashboards</strong> using advanced DAX measures</li><li>Tracked lead time, delivery reliability, and spend variance in real time across <strong>50+ supplier contracts</strong></li><li>Built <strong>regression-based forecasting models</strong> improving material planning accuracy by <strong>15%</strong></li><li>Performed root cause analysis on <strong>200+ delivery failures</strong>, surfacing 3 systemic issues that drove a <strong>12% improvement in on-time delivery</strong></li><li>Contributed to a <strong>40% cost reduction</strong> initiative and <strong>10% reduction</strong> in excess inventory through data-driven supplier insights</li></ul>
+        <div class="project-highlight">⚡ 40% cost reduction · +12% on-time delivery · 8h/week reporting eliminated · 50+ contracts tracked</div>
+      <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;">
+      </div>
+      </div>
+
+      <!-- ── 5. Warehouse ── -->
+      <div class="project-card">
+        
+        <h3>Warehouse Bottleneck &amp; Logistics Performance Analysis</h3>
+        <div class="project-tools">
+          <span class="project-tool">Excel</span><span class="project-tool">Data Cleaning</span>
+          <span class="project-tool">Process Mapping</span><span class="project-tool">Operational Analytics</span>
+        </div>
+        <ul class="proj-bullets"><li>Analyzed <strong>12 months</strong> of warehouse and logistics data across <strong>4 facility zones</strong> and <strong>3 shift patterns</strong></li><li>Pinpointed <strong>2 critical bottlenecks</strong> in Zone B picking sequences causing an estimated <strong>~23% throughput loss</strong></li><li>Submitted <strong>7 structured performance reports</strong> tracking throughput, dwell time, and flow efficiency — adopted for weekly operational planning</li><li>Findings <strong>presented at shareholder meetings</strong> and formally acknowledged by company stakeholders</li><li>Documented and standardized <strong>15+ operational workflows</strong>, reducing process ambiguity across supply chain functions</li></ul>
+        <div class="project-highlight">🏭 2 bottlenecks resolved · ~23% throughput loss identified · 15+ workflows standardized</div>
+      <div style="margin-top:14px;">
+      </div>
+      </div>
+
+      <!-- ── 6. Lean Six Sigma ── -->
+      <div class="project-card">
+        
+        <h3>Process Improvement &amp; Root Cause Analysis — Lean Six Sigma</h3>
+        <div class="project-tools">
+          <span class="project-tool">Lean Six Sigma</span><span class="project-tool">DMAIC</span>
+          <span class="project-tool">Root Cause Analysis</span><span class="project-tool">Statistical Analysis</span><span class="project-tool">Excel</span>
+        </div>
+        <ul class="proj-bullets"><li>Applied the full <strong>DMAIC framework</strong> to analyze process variation and identify root causes of recurring operational inefficiencies</li><li>Measured a baseline defect rate of <strong>8.4%</strong>; identified <strong>3 root causes</strong> using fishbone diagram and Pareto analysis</li><li>Implemented targeted fixes that reduced defect rate from 8.4% to <strong>3.2%</strong> — a <strong>62% improvement</strong></li><li>Quantified waste reduction worth an estimated <strong>$80K annually</strong> through structured statistical analysis</li></ul>
+        <div class="project-highlight">🔍 62% defect rate reduction · 3 root causes eliminated · ~$80K annual waste quantified</div>
+      <div style="margin-top:14px;">
+      </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Education -->
+<section id="education">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Education</span>
+      <h2 class="section-title">Academic Background</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="edu-grid reveal">
+      <div class="edu-card" style="grid-column:1/-1;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:20px;">
+          <div>
+            <div class="edu-degree">MS in Business Analytics</div>
+            <div class="edu-school"><a href="https://www.depaul.edu/academics/colleges-and-schools/kellstadt-graduate-school-of-business/pages/default.aspx" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">DePaul University — Kellstadt Graduate School of Business <i class="fas fa-external-link-alt" style="font-size:.65rem;"></i></a></div>
+            <div class="edu-meta">Chicago, IL, USA · Completed March 2026</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+            <span class="edu-gpa"><i class="fas fa-star"></i> GPA: 3.875 / 4.0</span>
+            
+          </div>
+        </div>
+
+        <!-- Transcript courses -->
+        <div style="margin-bottom:20px;">
+          <div style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:14px;">Coursework &amp; What I Learned</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;">
+
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="font-size:.85rem;font-weight:600;color:var(--ink);">Business Analytics Tools I &amp; II</span>
+              </div>
+              <p style="font-size:.8rem;color:var(--ink-mid);margin:0;line-height:1.5;">Statistical modeling, data pipelines, and analytical frameworks for business decision-making. Built end-to-end analytics workflows from raw data to insight.</p>
+            </div>
+
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="font-size:.85rem;font-weight:600;color:var(--ink);">Decision Making for Managers</span>
+              </div>
+              <p style="font-size:.8rem;color:var(--ink-mid);margin:0;line-height:1.5;">Applied quantitative and behavioral frameworks to solve complex business decisions under uncertainty. Developed structured approaches to tradeoff analysis and risk evaluation.</p>
+            </div>
+
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="font-size:.85rem;font-weight:600;color:var(--ink);">Business Performance Analysis</span>
+              </div>
+              <p style="font-size:.8rem;color:var(--ink-mid);margin:0;line-height:1.5;">KPI design, financial performance measurement, and dashboard development. Learned to translate business goals into trackable metrics using Power BI and Excel.</p>
+            </div>
+
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="font-size:.85rem;font-weight:600;color:var(--ink);">Project Management</span>
+              </div>
+              <p style="font-size:.8rem;color:var(--ink-mid);margin:0;line-height:1.5;">End-to-end project planning, scope management, risk assessment, and stakeholder communication using Agile and traditional frameworks. Applied to real business scenarios.</p>
+            </div>
+
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="font-size:.85rem;font-weight:600;color:var(--ink);">Fundamentals of Data Science</span>
+              </div>
+              <p style="font-size:.8rem;color:var(--ink-mid);margin:0;line-height:1.5;">Machine learning algorithms, model evaluation, and predictive analytics using Python. Covered classification, regression, clustering, and feature engineering for real datasets.</p>
+            </div>
+
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="font-size:.85rem;font-weight:600;color:var(--ink);">Strategic Supply Chain Management</span>
+              </div>
+              <p style="font-size:.8rem;color:var(--ink-mid);margin:0;line-height:1.5;">Global supply chain strategy, network design, demand planning, and supplier relationships. Connected analytics directly to operational and procurement decision-making.</p>
+            </div>
+
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="font-size:.85rem;font-weight:600;color:var(--ink);">Global Sourcing &amp; Procurement</span>
+              </div>
+              <p style="font-size:.8rem;color:var(--ink-mid);margin:0;line-height:1.5;">Supplier evaluation, contract negotiation, total cost analysis, and global sourcing strategies. Directly applicable to my procurement analytics work at Siemens.</p>
+            </div>
+
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="font-size:.85rem;font-weight:600;color:var(--ink);">Analysis of Business Capstone (MGT 599)</span>
+              </div>
+              <p style="font-size:.8rem;color:var(--ink-mid);margin:0;line-height:1.5;">Real-world capstone: built a fleet safety risk model for Reyes Holdings using telematics data. Applied full analytics pipeline — descriptive, predictive, and prescriptive — to reduce driver incidents.</p>
+            </div>
+
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="font-size:.85rem;font-weight:600;color:var(--ink);">Database Management Systems &amp; Data Visualization</span>
+              </div>
+              <p style="font-size:.8rem;color:var(--ink-mid);margin:0;line-height:1.5;">SQL, relational database design, normalization, and query optimization. Paired with data visualization principles to design dashboards that communicate insights clearly to any audience.</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">Business and Data Analytics Program</div>
+        <div class="edu-school"><a href="https://www.iimu.ac.in/" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Indian Institute of Management (IIM) Udaipur <i class="fas fa-external-link-alt" style="font-size:.65rem;"></i></a></div>
+        <div class="edu-meta">Udaipur, India</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">Bachelor of Technology — Production Engineering</div>
+        <div class="edu-school"><a href="https://vjti.ac.in/" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Veermata Jijabai Technological Institute (VJTI) <i class="fas fa-external-link-alt" style="font-size:.65rem;"></i></a></div>
+        <div class="edu-meta">Mumbai, India · NAAC Grade A++</div>
+      </div>
+    </div>
+
+    <!-- Certifications -->
+    <div class="reveal" style="margin-top:40px;">
+      <span class="section-label">Certifications</span>
+      <div class="cert-row" style="margin-top:16px;">
+        <a href="https://www.coursera.org/professional-certificates/google-data-analytics" target="_blank" rel="noopener" class="cert-badge" style="text-decoration:none;"><i class="fab fa-google"></i> Google Data Analytics Certificate <span style="font-size:.7rem;opacity:.7;margin-left:4px;">↗</span></a>
+        <a href="http://theforage.com/completion-certificates/9PBTqmSxAf6zZTseP/io9DzWKe3PTsiS6GG_9PBTqmSxAf6zZTseP_T8fqtA2sazdbET3xc_1750896671628_completion_certificate.pdf" target="_blank" rel="noopener" class="cert-badge" style="text-decoration:none;"><i class="fas fa-building"></i> Deloitte Data Analytics Virtual Internship (Forage) <span style="font-size:.7rem;opacity:.7;margin-left:4px;">↗</span></a>
+        <a href="https://www.linkedin.com/learning/lean-six-sigma-foundations" target="_blank" rel="noopener" class="cert-badge" style="text-decoration:none;"><i class="fas fa-certificate"></i> Lean Six Sigma Foundations <span style="font-size:.7rem;opacity:.7;margin-left:4px;">↗</span></a>
+        <a href="https://www.linkedin.com/learning/certificates/8dba05873f951647d7374b6f15e65519a34d32e528f6c7b99259ba953ad9699c" target="_blank" rel="noopener noreferrer" class="cert-badge" style="text-decoration:none;"><i class="fab fa-linkedin"></i> Hands-On AI: Intro to RAG <span style="font-size:.7rem;opacity:.7;margin-left:4px;">↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Volunteering -->
+<section id="volunteering" style="background:var(--white);">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Volunteering</span>
+      <h2 class="section-title">Giving Back</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="reveal">
+      <div style="background:var(--cream);border:1px solid var(--border);border-radius:16px;overflow:hidden;">
+
+        <!-- Top banner -->
+        <div style="background:var(--teal);padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+          <div>
+            <div style="font-size:1.3rem;font-weight:700;color:white;font-family:'DM Serif Display',serif;">Strategic Team Lead Volunteer</div>
+            <a href="https://robinhoodarmy.com/" target="_blank" rel="noopener" style="color:rgba(255,255,255,.85);font-size:.95rem;font-weight:600;text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
+              Robin Hood Army (NGO) <i class="fas fa-external-link-alt" style="font-size:.65rem;"></i>
+            </a>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <span style="background:rgba(255,255,255,.15);color:white;font-size:.78rem;font-weight:600;padding:5px 14px;border-radius:100px;display:inline-flex;align-items:center;gap:5px;">
+              <i class="fas fa-calendar-alt" style="font-size:.7rem;"></i> Jan 2016 – Dec 2024
+            </span>
+            <span style="background:rgba(255,255,255,.15);color:white;font-size:.78rem;font-weight:600;padding:5px 14px;border-radius:100px;display:inline-flex;align-items:center;gap:5px;">
+              <i class="fas fa-map-marker-alt" style="font-size:.7rem;"></i> Mumbai, India
+            </span>
+          </div>
+        </div>
+
+        <div style="padding:28px 32px;">
+
+          <!-- Impact stats row -->
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px;margin-bottom:28px;">
+            <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;">
+              <div style="font-size:1.8rem;font-weight:700;color:var(--teal);line-height:1;">8+</div>
+              <div style="font-size:.75rem;color:var(--ink-light);margin-top:4px;">Years of Service</div>
+            </div>
+            <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;">
+              <div style="font-size:1.8rem;font-weight:700;color:var(--teal);line-height:1;">6,500+</div>
+              <div style="font-size:.75rem;color:var(--ink-light);margin-top:4px;">People Served</div>
+            </div>
+            <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;">
+              <div style="font-size:1.8rem;font-weight:700;color:var(--teal);line-height:1;">100+</div>
+              <div style="font-size:.75rem;color:var(--ink-light);margin-top:4px;">Outreach Events</div>
+            </div>
+            <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;">
+              <div style="font-size:1.8rem;font-weight:700;color:var(--teal);line-height:1;">15+</div>
+              <div style="font-size:.75rem;color:var(--ink-light);margin-top:4px;">Volunteers Led</div>
+            </div>
+            <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;">
+              <div style="font-size:1.8rem;font-weight:700;color:var(--teal);line-height:1;">10+</div>
+              <div style="font-size:.75rem;color:var(--ink-light);margin-top:4px;">Locations Covered</div>
+            </div>
+            <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;">
+              <div style="font-size:1.8rem;font-weight:700;color:var(--teal);line-height:1;">−20%</div>
+              <div style="font-size:.75rem;color:var(--ink-light);margin-top:4px;">Food Wastage Reduced</div>
+            </div>
+          </div>
+
+          <!-- RHA Team Photo -->
+          <div style="margin-bottom:24px;border-radius:12px;overflow:hidden;border:1px solid var(--border);">
+            <img src="rha_team.png" alt="Robin Hood Army team — Mumbai chapter" style="width:100%;height:320px;object-fit:cover;object-position:center 40%;display:block;">
+            <div style="padding:8px 14px;background:var(--white);font-size:.78rem;color:var(--ink-light);text-align:center;">
+              <i class="fas fa-users" style="color:var(--teal);margin-right:5px;"></i>
+              The Robin Hood Army Mumbai team — one of our outreach events
+            </div>
+          </div>
+
+          <!-- Two column: about + bullets -->
+          <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:28px;align-items:start;">
+
+            <!-- Left: about RHA -->
+            <div>
+              <div style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;">About Robin Hood Army</div>
+              <p style="font-size:.9rem;line-height:1.7;color:var(--ink-mid);margin-bottom:14px;">
+                Robin Hood Army is a zero-funds volunteer organisation that works to get surplus food from restaurants and other sources to the less fortunate — active across 30+ cities and 15+ countries.
+              </p>
+              <p style="font-size:.9rem;line-height:1.7;color:var(--ink-mid);">
+                As a Strategic Team Lead for 8+ years, I was responsible for coordinating one of Mumbai's most active chapters — planning events, leading volunteers, and applying data-driven thinking to make every operation more efficient.
+              </p>
+              <div style="margin-top:16px;background:var(--teal-pale);border-radius:8px;padding:12px 14px;font-size:.82rem;color:var(--teal);font-style:italic;line-height:1.6;">
+                "Using route optimisation and data planning, we reduced food wastage by ~20% per event cycle while increasing reach across Mumbai."
+              </div>
+            </div>
+
+            <!-- Right: contributions -->
+            <div>
+              <div style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:12px;">Key Contributions</div>
+              <ul class="exp-bullets">
+                <li>Led a volunteer team of <strong>15+ members</strong> over <strong>8+ years</strong>, coordinating food distribution logistics across <strong>10+ locations</strong> in Mumbai</li>
+                <li>Planned and executed <strong>100+ community outreach events</strong>, collectively serving over <strong>6,500 people</strong> across underprivileged communities</li>
+                <li>Applied data-driven logistics planning to optimise route scheduling and volunteer allocation, reducing food wastage by an estimated <strong>20%</strong> per event cycle</li>
+                <li>Built and sustained a high-functioning volunteer team, driving consistent engagement and operational reliability across the chapter over nearly a decade</li>
+                <li>Recognised for community impact and operational leadership across one of Mumbai's most active RHA chapters</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Contact -->
+<section id="contact">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Contact</span>
+      <h2 class="section-title">Let's Connect</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="contact-grid reveal">
+      <div class="contact-form-card">
+        <div class="contact-card-title">Send a Message</div>
+        <form id="contactForm" action="https://formspree.io/f/mmanani" method="POST">
+          <input type="hidden" name="_subject" value="Portfolio Contact – Mahek Manani">
+          <input type="text" name="_gotcha" style="display:none">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="_replyto" required>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea name="message" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+
+      <div class="contact-info-card">
+        <div class="contact-card-title">Quick Links</div>
+        <div class="contact-links">
+          <a href="mailto:maheksmanani@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i> maheksmanani@gmail.com
+          </a>
+          <a href="tel:+17736900311" class="contact-link">
+            <i class="fas fa-phone"></i> +1 (773) 690-0311
+          </a>
+          <a href="https://www.linkedin.com/in/mahek-manani/" target="_blank" rel="noopener" class="contact-link">
+            <i class="fab fa-linkedin-in"></i> linkedin.com/in/mahek-manani
+          </a>
+          <a href="#" class="contact-link">
+            <i class="fas fa-map-marker-alt"></i> Chicago, IL · Open to Relocate
+          </a>
+          <a href="Mahek_Manani_Resume.pdf" download class="contact-link" style="border:1.5px solid var(--teal);color:var(--teal);font-weight:600;">
+            <i class="fas fa-download"></i> Download Resume
+          </a>
+        </div>
+        <div class="availability-badge">Currently open to full-time opportunities</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2026 <span>Mahek Manani</span> · Data Analyst · Chicago, IL</p>
 </footer>
 
+<script>
+  // Scroll progress
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = (window.scrollY / (h.scrollHeight - h.clientHeight)) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+  });
 
-</body>
-</html>
+  // Active nav
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) cur = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
+    });
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      navLinks.forEach(l => l.parentElement.parentElement.classList.remove('open'));
+    });
+  });
+
+  // Mobile nav
+  const toggle = document.querySelector('.nav-toggle');
+  const list   = document.querySelector('.nav-links');
+  toggle.addEventListener('click', () => {
+    const open = list.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  revealEls.forEach(el => el.classList.add('hidden'));
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.remove('hidden');
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+  revealEls.forEach(el => obs.observe(el));
+
+  // Contact form
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('button[type=submit]');
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending…'; btn.disabled = true;
+    try {
+      const r = await fetch(this.action, { method:'POST', body: new FormData(this), headers:{ Accept:'application/json' } });
+      btn.innerHTML = r.ok ? '<i class="fas fa-check"></i> Sent!' : '<i class="fas fa-times"></i> Try Again';
+      btn.style.background = r.ok ? '#16a34a' : '#dc262
